@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "386533335065",
+    "firebase_url": "https://faculty-calendar-scheduler.firebaseio.com",
+    "project_id": "faculty-calendar-scheduler",
+    "storage_bucket": "faculty-calendar-scheduler.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386533335065:android:eb43bb875f6cdf68fa8a88",
+        "android_client_info": {
+          "package_name": "com.example.facultycalendarscheduler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "386533335065-rl00f190rcsja2tc478b708k4gli2c63.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.facultycalendarscheduler",
+            "certificate_hash": "c62ef8e6217223ddd8f234c957a60adbdc750f4d"
+          }
+        },
+        {
+          "client_id": "386533335065-o1l39oh2g0i9uu6a6cspns95tmbm22f5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClz60hKsY0kJlRx0-SSk75Wr0E_dkviw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "386533335065-o1l39oh2g0i9uu6a6cspns95tmbm22f5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
