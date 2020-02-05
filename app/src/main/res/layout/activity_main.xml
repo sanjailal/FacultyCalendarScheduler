@@ -40,7 +40,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
-
+            android:text="softENGINE"
             android:hint="Enter password"
             android:imeActionLabel="Sign in"
             android:imeOptions="actionDone"
@@ -53,6 +53,7 @@
         <EditText
             android:id="@+id/username"
             android:layout_width="0dp"
+            android:text="soft@gmail.com"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="96dp"

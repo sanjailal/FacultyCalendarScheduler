@@ -3,6 +3,7 @@ package com.example.facultycalendarscheduler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -105,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(MainActivity.this,"Authentication success",Toast.LENGTH_SHORT).show();
             // put an intent here to jump to your next layout @uday
             //*******************************************************************************************************
+            Intent calintent = new Intent(this, calendar_view.class);
+            this.startActivity ( calintent );
 
         } else {
 
