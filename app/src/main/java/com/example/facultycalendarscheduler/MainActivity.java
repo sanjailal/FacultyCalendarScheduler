@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText passwordEditText;
     private ProgressBar loadingProgressBar;
     private Button loginButton;
+    private Button adminButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loadingProgressBar = findViewById(R.id.loading);
         loginButton.setEnabled(true);
         loginButton.setOnClickListener(this);
+        adminButton = findViewById(R.id.admin_button);
+        adminButton.setEnabled(true);
+        adminButton.setOnClickListener(this);
 
 
 
@@ -122,6 +126,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             signIn(usernameEditText.getText().toString(), passwordEditText.getText().toString());
 
+        }
+        if(i==R.id.admin_button){
+            Intent adminintent = new Intent(this,Adminlogin.class);
+            this.startActivity ( adminintent );
         }
     }
 }
