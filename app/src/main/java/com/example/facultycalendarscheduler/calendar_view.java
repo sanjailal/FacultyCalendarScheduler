@@ -3,16 +3,21 @@ package com.example.facultycalendarscheduler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Build;
+
 import android.os.Bundle;
-import android.transition.TransitionManager;
+
 import android.util.Log;
-import android.view.ViewGroup;
+
 import android.widget.Toast;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.CalendarMode;
+
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
@@ -31,6 +36,9 @@ import java.util.concurrent.Executors;
 
 public class calendar_view extends AppCompatActivity implements OnDateSelectedListener {
 
+    String[] mobileArray = {"Android","IPhone","WindowsMobile","Blackberry",
+            "WebOS","Ubuntu","Windows7","Max OS X","dfsa","afsd","fdas","afdsafds","afdsdfsdafd","afdsafd","dfasadfs"};
+
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE, d MMM yyyy");
   //  @BindView(R2.id.parent) ViewGroup parent;
     @BindView(R2.id.calendarView_single) MaterialCalendarView single;
@@ -45,7 +53,21 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
         single.setOnDateChangedListener(this);
         //single.addDecorator(new EventDecorator(Color.BLUE, ));
         new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.listitems, mobileArray);
+
+        ListView listView = (ListView) findViewById(R.id.items_in_list);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String value=adapter.getItem(position).toString();
+                Toast.makeText(getApplicationContext(),value,Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
+
 
 
     @Override
@@ -53,6 +75,9 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
         final String text = selected ? FORMATTER.format(date.getDate()) : "No Selection";
         Toast.makeText(calendar_view.this, text, Toast.LENGTH_SHORT).show();
     }
+
+
+
     private class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
 
         @Override
