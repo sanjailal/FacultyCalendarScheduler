@@ -3,7 +3,11 @@ package com.example.facultycalendarscheduler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +24,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth mAuth;
     private EditText usernameEditText;
@@ -27,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressBar loadingProgressBar;
     private Button loginButton;
     private Button adminButton;
+    public static String listviewstr="";
+    ProgressDialog prgDialog;
+    int signinstatus =0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,14 +121,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             loginButton.setVisibility(View.VISIBLE);
             Toast.makeText(MainActivity.this,"Authentication success",Toast.LENGTH_SHORT).show();
+            Log.d("san","success",null);
             // put an intent here to jump to your next layout @uday
             //*******************************************************************************************************
-            Intent calintent = new Intent(this, calendar_view.class);
-            this.startActivity ( calintent );
+            //Intent calintent = new Intent(this, calendar_view.class);
+            //this.startActivity ( calintent );
+            new myTask().execute();
+            //signinstatus =1;
 
         } else {
 
             Toast.makeText(MainActivity.this,"Authentication not success",Toast.LENGTH_SHORT).show();
+
             loginButton.setVisibility(View.VISIBLE);
         }
     }
@@ -124,12 +141,119 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int i = v.getId();
         if (i == R.id.loginv) {
 
-            signIn(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+            //signIn(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+//            if(signinstatus==1){
+            new myTask().execute();
+//            }
 
         }
         if(i==R.id.admin_button){
             Intent adminintent = new Intent(this,Adminlogin.class);
             this.startActivity ( adminintent );
+        }
+    }
+
+
+    public class myTask extends AsyncTask<Void,Void,Void>
+    {
+        String s="";
+        String url="jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/sed";
+        String usr="admin";
+        String pwd="123456789";
+
+
+
+        @Override
+        protected void onPreExecute() {
+
+//            prgDialog = new ProgressDialog(
+//                    studentview.this);
+//            prgDialog.setMessage
+//                    ("Gathering Details");
+//            // prgDialog.setIndeterminate(false);
+//            prgDialog.setProgressStyle
+//                    (ProgressDialog.STYLE_SPINNER);
+//            prgDialog.setCancelable(false);
+//            prgDialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try{
+
+                Class.forName("com.mysql.jdbc.Driver");
+                Log.v("san","pending");
+                Connection con = DriverManager.getConnection(url, usr, pwd);
+                Log.v("san","comp");
+                s="0";
+                Statement st = con.createStatement();
+                ResultSet rsmon=st.executeQuery("(select * from listd);");
+                while(rsmon.next())
+                    listviewstr += (rsmon.getString(1)+" ");
+                Log.v("san",listviewstr);
+                con.close();
+            }
+            catch(Exception E)
+            {
+                E.printStackTrace();
+
+                s="1";
+            }
+            return null;
+        }
+
+
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if(s.equals("1"))
+            {
+                Toast.makeText(getApplicationContext(),"Not Connected",Toast.LENGTH_LONG).show();
+            }
+            if(s.equals("0"))
+            {
+
+                prgDialog = new ProgressDialog(
+                        MainActivity.this);
+                prgDialog.setMessage
+                        ("Gathering Details");
+                // prgDialog.setIndeterminate(false);
+                prgDialog.setProgressStyle
+                        (ProgressDialog.STYLE_SPINNER);
+                prgDialog.setCancelable(false);
+                prgDialog.show();
+
+                //  Toast.makeText(getApplicationContext(),"Connected",Toast.LENGTH_LONG).show();
+                Intent i=new Intent(MainActivity.this,calendar_view.class);
+                i.putExtra("STRING_I_NEED", listviewstr);
+//                i.putExtra("tue",rstue);
+//                i.putExtra("wed",rswed);
+//                i.putExtra("thu",rsthu);
+//                i.putExtra("fri",rsfri);
+                startActivity(i);
+                 Toast.makeText(getApplicationContext(),"Table :"+listviewstr,Toast.LENGTH_LONG).show();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle(" Timetable")
+                        .setMessage(listviewstr)
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+
+                prgDialog.dismiss();
+
+            }
+
+
         }
     }
 }

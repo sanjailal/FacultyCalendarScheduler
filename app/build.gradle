@@ -41,4 +41,5 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.4.0'
     implementation 'com.android.support:design:28.4.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+    implementation project(path: ':mysql-connector-java-3.0.17-ga-bin')
 }

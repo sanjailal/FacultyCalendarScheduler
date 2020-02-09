@@ -36,8 +36,9 @@ import java.util.concurrent.Executors;
 
 public class calendar_view extends AppCompatActivity implements OnDateSelectedListener {
 
-    String[] mobileArray = {"Android","IPhone","WindowsMobile","Blackberry",
+    public String[] mobileArray = {"Android","IPhone","WindowsMobile","Blackberry",
             "WebOS","Ubuntu","Windows7","Max OS X","dfsa","afsd","fdas","afdsafds","afdsdfsdafd","afdsafd","dfasadfs"};
+
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE, d MMM yyyy");
   //  @BindView(R2.id.parent) ViewGroup parent;
@@ -51,11 +52,14 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
         setContentView(R.layout.activity_calendar_view);
         ButterKnife.bind(this);
         single.setOnDateChangedListener(this);
+        Bundle extras;
+        extras=getIntent().getExtras();
+        String s =extras.getString("STRING_I_NEED");
+        //mobileArray=extras.getStringArray("STRING_I_NEED");
+        mobileArray=s.split(" ");
         //single.addDecorator(new EventDecorator(Color.BLUE, ));
         new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
-
         ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.listitems, mobileArray);
-
         ListView listView = (ListView) findViewById(R.id.items_in_list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -109,6 +113,10 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
             single.addDecorator(new EventDecorator(Color.BLUE, calendarDays));
         }
     }
+
+
+
+
 
 
 
