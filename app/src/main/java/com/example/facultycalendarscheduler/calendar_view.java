@@ -27,7 +27,7 @@ import butterknife.OnCheckedChanged;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
-import com.example.facultycalendarscheduler.sampledata.EventDecorator;
+//import com.example.facultycalendarscheduler.sampledata.EventDecorator;
 
 import java.util.ArrayList;
 import java.util.List;

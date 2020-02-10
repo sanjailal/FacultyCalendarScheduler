@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Timetable">
+
+    <com.github.tlaabs.timetableview.TimetableView
+        android:id="@+id/timetable"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:header_highlight_image_size="36dp"
+        app:header_highlight_type="image"
+        app:header_highlight_color="#ffff00"
+        app:header_title="@array/header_title"
+        app:cell_height="47dp"
+        app:side_cell_width="34dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:start_time="8"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,9 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText passwordEditText;
     private ProgressBar loadingProgressBar;
     private Button loginButton;
-    private Button adminButton;
+    //private Button adminButton;
     public static String listviewstr="";
-    ProgressDialog prgDialog;
+    ProgressBar prgDialog;
     int signinstatus =0;
 
 
@@ -54,9 +56,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loadingProgressBar = findViewById(R.id.loading);
         loginButton.setEnabled(true);
         loginButton.setOnClickListener(this);
-        adminButton = findViewById(R.id.admin_button);
-        adminButton.setEnabled(true);
-        adminButton.setOnClickListener(this);
+        prgDialog=findViewById(R.id.loading);
+//        adminButton = findViewById(R.id.admin_button);
+//        adminButton.setEnabled(true);
+//        adminButton.setOnClickListener(this);
 
 
 
@@ -144,13 +147,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //signIn(usernameEditText.getText().toString(), passwordEditText.getText().toString());
 //            if(signinstatus==1){
             new myTask().execute();
+            prgDialog.setVisibility(View.VISIBLE);
+
 //            }
 
         }
-        if(i==R.id.admin_button){
-            Intent adminintent = new Intent(this,Adminlogin.class);
-            this.startActivity ( adminintent );
-        }
+//        if(i==R.id.admin_button){
+//            Intent adminintent = new Intent(this,Adminlogin.class);
+//            this.startActivity ( adminintent );
+//        }
     }
 
 
@@ -215,18 +220,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(s.equals("0"))
             {
 
-                prgDialog = new ProgressDialog(
-                        MainActivity.this);
-                prgDialog.setMessage
-                        ("Gathering Details");
-                // prgDialog.setIndeterminate(false);
-                prgDialog.setProgressStyle
-                        (ProgressDialog.STYLE_SPINNER);
-                prgDialog.setCancelable(false);
-                prgDialog.show();
+//                prgDialog = new ProgressDialog(
+//                        MainActivity.this);
+
+//                prgDialog.setMessage
+//                        ("Gathering Details");
+//                // prgDialog.setIndeterminate(false);
+//                prgDialog.setProgressStyle
+//                        (ProgressDialog.STYLE_SPINNER);
+//                prgDialog.setCancelable(false);
+//                prgDialog.show();
 
                 //  Toast.makeText(getApplicationContext(),"Connected",Toast.LENGTH_LONG).show();
-                Intent i=new Intent(MainActivity.this,calendar_view.class);
+                Intent i=new Intent(MainActivity.this,Userlogin.class);
                 i.putExtra("STRING_I_NEED", listviewstr);
 //                i.putExtra("tue",rstue);
 //                i.putExtra("wed",rswed);
@@ -249,12 +255,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .show();
 
 
-                prgDialog.dismiss();
+                prgDialog.setVisibility(View.GONE);
 
             }
 
 
+
         }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu
+            (Menu menu) {
+        getMenuInflater().inflate
+                (R.menu.menu, menu);
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected
+            (MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.i1:
+                Intent i = new Intent(this, Adminlogin.class);
+                startActivity(i);
+                break;
+
+            case R.id.i2:
+                androidx.appcompat.app.AlertDialog.Builder al =
+                        new androidx.appcompat.app.AlertDialog.Builder(
+                                MainActivity.this);
+                al.setTitle("Team Details");
+                al.setMessage("Roll No|||Name\nCB.EN.U4CSE17604|||Adityan\nCB.EN.U4CSE17611|||Atisha\nCB.EN.U4CSE17627|||Vinay\nCB.EN.U4CSE17637|||Uday Srinivas\nCB.EN.U4CSE17655|||Sanjay Lal");
+                al.setCancelable(true);
+                al.show();
+                break;
+
+            case R.id.i3:
+                androidx.appcompat.app.AlertDialog.Builder a2 =
+                        new androidx.appcompat.app.AlertDialog.Builder(
+                                MainActivity.this);
+                a2.setTitle("Team Details");
+                a2.setMessage("This app lets faculty view calendar and timetable");
+                a2.setCancelable(true);
+                a2.show();
+                break;
+        }
+
+
+        return true;
     }
 }
 
