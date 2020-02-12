@@ -197,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 while(rsmon.next())
                     listviewstr += (rsmon.getString(1)+" ");
                 Log.v("san",listviewstr);
+
                 con.close();
             }
             catch(Exception E)
@@ -238,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                i.putExtra("wed",rswed);
 //                i.putExtra("thu",rsthu);
 //                i.putExtra("fri",rsfri);
+                prgDialog.setVisibility(View.GONE);
                 startActivity(i);
                  Toast.makeText(getApplicationContext(),"Table :"+listviewstr,Toast.LENGTH_LONG).show();
                 new AlertDialog.Builder(MainActivity.this)
@@ -255,7 +257,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .show();
 
 
-                prgDialog.setVisibility(View.GONE);
+
 
             }
 
