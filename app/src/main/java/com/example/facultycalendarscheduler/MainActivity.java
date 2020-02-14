@@ -1,8 +1,6 @@
 package com.example.facultycalendarscheduler;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -17,15 +15,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -37,10 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText passwordEditText;
     private ProgressBar loadingProgressBar;
     private Button loginButton;
-    //private Button adminButton;
     public static String listviewstr="";
     ProgressBar prgDialog;
-    int signinstatus =0;
 
 
     @Override
@@ -57,12 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loginButton.setEnabled(true);
         loginButton.setOnClickListener(this);
         prgDialog=findViewById(R.id.loading);
-//        adminButton = findViewById(R.id.admin_button);
-//        adminButton.setEnabled(true);
-//        adminButton.setOnClickListener(this);
-
-
-
     }
 
     private void signIn(String username, String password) {
@@ -91,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         loadingProgressBar.setVisibility(View.GONE);
 
-                        // ...
+
                     }
                 });
 
@@ -127,15 +114,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d("san","success",null);
             // put an intent here to jump to your next layout @uday
             //*******************************************************************************************************
-            //Intent calintent = new Intent(this, calendar_view.class);
-            //this.startActivity ( calintent );
-            new myTask().execute();
-            //signinstatus =1;
+            //new myTask().execute();
+            Intent i=new Intent(MainActivity.this,Userlogin.class);
+
+            startActivity(i);
+
 
         } else {
 
             Toast.makeText(MainActivity.this,"Authentication not success",Toast.LENGTH_SHORT).show();
-
             loginButton.setVisibility(View.VISIBLE);
         }
     }
@@ -144,25 +131,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int i = v.getId();
         if (i == R.id.loginv) {
 
-            //signIn(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+            signIn(usernameEditText.getText().toString(), passwordEditText.getText().toString());
 //            if(signinstatus==1){
-            new myTask().execute();
+            //new myTask().execute();
             prgDialog.setVisibility(View.VISIBLE);
-
-//            }
-
         }
-//        if(i==R.id.admin_button){
-//            Intent adminintent = new Intent(this,Adminlogin.class);
-//            this.startActivity ( adminintent );
-//        }
+
     }
 
 
     public class myTask extends AsyncTask<Void,Void,Void>
     {
         String s="";
-        String url="jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/sed";
+        String url="jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
         String usr="admin";
         String pwd="123456789";
 
@@ -170,18 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected void onPreExecute() {
-
-//            prgDialog = new ProgressDialog(
-//                    studentview.this);
-//            prgDialog.setMessage
-//                    ("Gathering Details");
-//            // prgDialog.setIndeterminate(false);
-//            prgDialog.setProgressStyle
-//                    (ProgressDialog.STYLE_SPINNER);
-//            prgDialog.setCancelable(false);
-//            prgDialog.show();
-
-        }
+      }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -208,9 +178,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return null;
         }
-
-
-
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
@@ -221,50 +188,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(s.equals("0"))
             {
 
-//                prgDialog = new ProgressDialog(
-//                        MainActivity.this);
-
-//                prgDialog.setMessage
-//                        ("Gathering Details");
-//                // prgDialog.setIndeterminate(false);
-//                prgDialog.setProgressStyle
-//                        (ProgressDialog.STYLE_SPINNER);
-//                prgDialog.setCancelable(false);
-//                prgDialog.show();
-
-                //  Toast.makeText(getApplicationContext(),"Connected",Toast.LENGTH_LONG).show();
-                Intent i=new Intent(MainActivity.this,Userlogin.class);
-                i.putExtra("STRING_I_NEED", listviewstr);
-//                i.putExtra("tue",rstue);
-//                i.putExtra("wed",rswed);
-//                i.putExtra("thu",rsthu);
-//                i.putExtra("fri",rsfri);
-                prgDialog.setVisibility(View.GONE);
-                startActivity(i);
                  Toast.makeText(getApplicationContext(),"Table :"+listviewstr,Toast.LENGTH_LONG).show();
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle(" Timetable")
-                        .setMessage(listviewstr)
-
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-
-
-
-
             }
-
-
-
         }
-
     }
 
     @Override
@@ -306,8 +232,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 a2.show();
                 break;
         }
-
-
         return true;
     }
 }

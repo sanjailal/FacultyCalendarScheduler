@@ -21,16 +21,13 @@ public class Userlogin extends AppCompatActivity implements View.OnClickListener
         b2=findViewById(R.id.imageButton1);
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
-        extras=getIntent().getExtras();
-        s =extras.getString("STRING_I_NEED");
+
     }
 
     @Override
     public void onClick(View view) {
         if(view==b1){
             Intent i= new Intent(this,calendar_view.class);
-
-            i.putExtra("STRING_I_NEED", s);
             startActivity(i);
         }
         if(view==b2){
