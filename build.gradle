@@ -5,14 +5,16 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
         classpath 'com.google.gms:google-services:4.2.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
-
-
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.1"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -25,6 +27,7 @@ allprojects {
 
         jcenter()
         maven { url 'https://jitpack.io' }
+
         
     }
 }

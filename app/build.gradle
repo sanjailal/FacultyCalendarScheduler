@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'org.sonarqube'
 
 android {
     compileSdkVersion 28
@@ -27,6 +28,18 @@ android {
     }
 }
 
+sonarqube {
+    properties {
+        property "sonar.projectName", "software"
+        property "sonar.projectKey", "software"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.language", "java"
+        property "sonar.sources", "src/main/"
+        property "sonar.login", "admin"
+        property "sonar.password", "admin"
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -50,6 +63,13 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.0'
     androidTestCompile ("com.android.support.test.espresso:espresso-intents:3.1.0")
+    // Required -- JUnit 4 framework
+    testImplementation 'junit:junit:4.12'
+    // Optional -- Robolectric environment
+    testImplementation 'androidx.test:core:1.0.0'
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+
 
 //    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2') {
 //        // Necessary if your app targets Marshmallow (since Espresso
