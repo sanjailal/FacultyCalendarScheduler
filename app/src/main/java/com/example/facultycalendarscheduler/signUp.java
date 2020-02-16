@@ -2,8 +2,6 @@ package com.example.facultycalendarscheduler;
 
 import androidx.annotation.NonNull;
 import  androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,7 +24,6 @@ public class signUp extends AppCompatActivity implements View.OnClickListener {
     private EditText passwordEditText;
     private ProgressBar loadingProgressBar;
     private Button loginButton;
-    private Button adminButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +32,14 @@ public class signUp extends AppCompatActivity implements View.OnClickListener {
 
         mAuth = FirebaseAuth.getInstance();
         usernameEditText = findViewById(R.id.username);
-        String username = usernameEditText.getText().toString();
         passwordEditText = findViewById(R.id.password);
-        String password = passwordEditText.getText().toString();
         loginButton = findViewById(R.id.loginv);
         loadingProgressBar = findViewById(R.id.loading);
         loginButton.setEnabled(true);
         loginButton.setOnClickListener(this);
 
     }
-    private void signUp(String username, String password) {
+    private void signedUp(String username, String password) {
         Log.d("d", "signIn:" + username);
         if (!validateForm()) {
             Toast.makeText(signUp.this, "Validation failed.",
@@ -117,7 +112,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener {
         int stat=v.getId();
         if (stat == R.id.loginv) {
 
-            signUp(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+            signedUp(usernameEditText.getText().toString(), passwordEditText.getText().toString());
 
         }
 

@@ -1,11 +1,7 @@
 package com.example.facultycalendarscheduler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,10 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth mAuth;
@@ -32,8 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText passwordEditText;
     private ProgressBar loadingProgressBar;
     private Button loginButton;
-    public static String listviewstr="";
-    ProgressBar prgDialog;
+
 
 
     @Override
@@ -42,14 +33,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         usernameEditText = findViewById(R.id.username);
-        String username = usernameEditText.getText().toString();
         passwordEditText = findViewById(R.id.password);
-        String password = passwordEditText.getText().toString();
         loginButton = findViewById(R.id.loginv);
         loadingProgressBar = findViewById(R.id.loading);
         loginButton.setEnabled(true);
         loginButton.setOnClickListener(this);
-        prgDialog=findViewById(R.id.loading);
     }
 
     private void signIn(String username, String password) {
@@ -132,66 +120,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (i == R.id.loginv) {
 
             signIn(usernameEditText.getText().toString(), passwordEditText.getText().toString());
-//            if(signinstatus==1){
-            //new myTask().execute();
-            prgDialog.setVisibility(View.VISIBLE);
         }
 
     }
 
-
-    public class myTask extends AsyncTask<Void,Void,Void>
-    {
-        String s="";
-        String url="jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
-        String usr="admin";
-        String pwd="123456789";
-
-
-
-        @Override
-        protected void onPreExecute() {
-      }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try{
-
-                Class.forName("com.mysql.jdbc.Driver");
-                Log.v("san","pending");
-                Connection con = DriverManager.getConnection(url, usr, pwd);
-                Log.v("san","comp");
-                s="0";
-                Statement st = con.createStatement();
-                ResultSet rsmon=st.executeQuery("(select * from listd);");
-                while(rsmon.next())
-                    listviewstr += (rsmon.getString(1)+" ");
-                Log.v("san",listviewstr);
-
-                con.close();
-            }
-            catch(Exception E)
-            {
-                E.printStackTrace();
-
-                s="1";
-            }
-            return null;
-        }
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if(s.equals("1"))
-            {
-                Toast.makeText(getApplicationContext(),"Not Connected",Toast.LENGTH_LONG).show();
-            }
-            if(s.equals("0"))
-            {
-
-                 Toast.makeText(getApplicationContext(),"Table :"+listviewstr,Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu

@@ -35,6 +35,18 @@
             android:id="@+id/items_in_list"
             android:layout_width="match_parent"
             android:layout_height="212dp" />
+        <ProgressBar
+            android:id="@+id/loadingcal"
+            android:layout_width="74dp"
+            android:layout_height="57dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="64dp"
+            android:visibility="gone"
+            app:layout_constraintVertical_bias="0.877" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

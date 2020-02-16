@@ -14,18 +14,16 @@ import android.widget.Toast;
 public class Adminlogin extends AppCompatActivity implements View.OnClickListener{
     private EditText usernameEditText;
     private EditText passwordEditText;
-    private ProgressBar loadingProgressBar;
+    //private ProgressBar loadingProgressBar;
     private Button loginButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adminlogin);
         usernameEditText = findViewById(R.id.username);
-        String username = usernameEditText.getText().toString();
         passwordEditText = findViewById(R.id.password);
-        String password = passwordEditText.getText().toString();
         loginButton = findViewById(R.id.loginv);
-        loadingProgressBar = findViewById(R.id.loading);
+       // loadingProgressBar = findViewById(R.id.loading);
         loginButton.setEnabled(true);
         loginButton.setOnClickListener(this);
     }

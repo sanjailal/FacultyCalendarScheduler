@@ -2,10 +2,7 @@ package com.example.facultycalendarscheduler;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.widget.Toast;
-
 import com.github.tlaabs.timetableview.Schedule;
 import com.github.tlaabs.timetableview.Time;
 import com.github.tlaabs.timetableview.TimetableView;
@@ -31,7 +28,7 @@ public class Timetable extends AppCompatActivity {
 
 
 
-        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
+        ArrayList<Schedule> schedules = new ArrayList<>();
 
         schedule = new Schedule();
         schedule.setDay(0);
@@ -47,7 +44,7 @@ public class Timetable extends AppCompatActivity {
         schedule.setClassTitle("15CSE303"+"\n"+"Theory of Computation"); // sets subject
         schedule.setClassPlace("A204"+"\n"+"B.Tech-CSE-V Sem-F"); // sets place
         schedule.setProfessorName("Aarthi R"); // sets professor
-        schedule.setStartTime(new Time(14,00)); // sets the beginning of class time (hour,minute)
+        schedule.setStartTime(new Time(14, 0)); // sets the beginning of class time (hour,minute)
         schedule.setEndTime(new Time(14,50)); // sets the end of class time (hour,minute)
         schedules.add(schedule);
 
@@ -65,7 +62,7 @@ public class Timetable extends AppCompatActivity {
         schedule.setClassTitle("19CSE100"+"\n"+"Problem solving and Algorithmic Thinking"); // sets subject
         schedule.setClassPlace("ABI CP Lab2"+"\n"+"B.Tech-ECE-I Sem-A"); // sets place
         schedule.setProfessorName("Aarthi R"); // sets professor
-        schedule.setStartTime(new Time(14,00)); // sets the beginning of class time (hour,minute)
+        schedule.setStartTime(new Time(14,0)); // sets the beginning of class time (hour,minute)
         schedule.setEndTime(new Time(16,30)); // sets the end of class time (hour,minute)
         schedules.add(schedule);
 
@@ -96,7 +93,7 @@ public class Timetable extends AppCompatActivity {
         schedule.setClassTitle("19CSE100"+"\n"+"Problem solving and Algorithmic Thinking"); // sets subject
         schedule.setClassPlace("C405"+"\n"+"B.Tech-ECE-I Sem-A"); // sets place
         schedule.setProfessorName("Aarthi R"); // sets professor
-        schedule.setStartTime(new Time(14,00)); // sets the beginning of class time (hour,minute)
+        schedule.setStartTime(new Time(14,0)); // sets the beginning of class time (hour,minute)
         schedule.setEndTime(new Time(16,30)); // sets the end of class time (hour,minute)
         schedules.add(schedule);
 
@@ -134,7 +131,7 @@ public class Timetable extends AppCompatActivity {
         schedule.setClassTitle("19CSE100"+"\n"+"Problem solving and Algorithmic Thinking"); // sets subject
         schedule.setClassPlace("C405"+"\n"+"B.Tech-ECE-I Sem-A"); // sets place
         schedule.setProfessorName("Aarthi R"); // sets professor
-        schedule.setStartTime(new Time(13,00)); // sets the beginning of class time (hour,minute)
+        schedule.setStartTime(new Time(13,0)); // sets the beginning of class time (hour,minute)
         schedule.setEndTime(new Time(13,50)); // sets the end of class time (hour,minute)
         schedules.add(schedule);
 

@@ -10,9 +10,6 @@ import android.widget.ImageButton;
 public class Userlogin extends AppCompatActivity implements View.OnClickListener {
     ImageButton b1,b2;
 
-    Bundle extras;
-
-    String s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
