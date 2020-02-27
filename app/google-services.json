@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "386533335065-cski82iqagkf2bhl6t69mll02mtik492.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.facultycalendarscheduler",
+            "certificate_hash": "526dd0babf3a5ee0c4f4e74fac8773f774ae9a1f"
+          }
+        },
+        {
           "client_id": "386533335065-rl00f190rcsja2tc478b708k4gli2c63.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

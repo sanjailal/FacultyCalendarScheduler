@@ -1,17 +1,18 @@
 package com.example.facultycalendarscheduler;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class global_testTest {
     @Test
     public void test_username() {
-        assertEquals(global_test.test_username("soft@gmail.com"),true);
+        assertEquals(global_test.test_username("softgmail.com"), true);
     }
 
     @Test
     public void test_password() {
-        assertEquals(global_test.test_password("softENGINE"),true);
+        assertEquals(global_test.test_password("softENGINEggyggyygggyhhhhhhhh"), true);
     }
 
 }
