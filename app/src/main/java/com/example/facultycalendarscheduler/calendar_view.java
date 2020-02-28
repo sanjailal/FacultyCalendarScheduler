@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -36,7 +38,7 @@ import butterknife.ButterKnife;
 
 public class calendar_view extends AppCompatActivity implements OnDateSelectedListener {
 
-
+    public String username = "";
     public String daystr="";
    // private ProgressBar loadingProgressBar =null;
    // private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE, d MMM yyyy");
@@ -52,8 +54,11 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
         single.setOnDateChangedListener(this);
        // loadingProgressBar=(ProgressBar)findViewById(R.id.loadingcal);
         new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
-
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        Toast.makeText(calendar_view.this, uid, Toast.LENGTH_LONG).show();
+        username = user.getEmail();
+        Log.d("san", username, null);
     }
 
     @Override
@@ -129,7 +134,7 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
                 Log.v("san","comp");
                 s="0";
                 Statement st = con.createStatement();
-                ResultSet rsmon=st.executeQuery("select descp from events where date_time=\""+daystr+"\";");
+                ResultSet rsmon = st.executeQuery("select descp from eventff where date_time=\"" + daystr + "\" and username=\"" + username + "\";");
                 while(rsmon.next())
                     mobileArray.add(rsmon.getString(1)+" ");
                 Log.v("san",listviewstr);

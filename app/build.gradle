@@ -61,7 +61,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation ("com.android.support.test.espresso:espresso-intents:3.1.0")
+    androidTestImplementation("com.android.support.test.espresso:espresso-intents:3.1.0")
     // Required -- JUnit 4 framework
     // Optional -- Robolectric environment
     androidTestImplementation 'androidx.test:core:1.2.0'
@@ -75,15 +75,17 @@ dependencies {
 
 sonarqube {
     properties {
-        def libraries = project.android.sdkDirectory.getPath() + "/platforms/android-23/android.jar"/* + ", build/intermediates/exploded-aar*//**//*classes.jar"*/
+        def libraries = project.android.sdkDirectory.getPath() + "/platforms/android-23/android.jar"
+/* + ", build/intermediates/exploded-aar*//**//*classes.jar"*/
         property "sonar.sources", "src/main/java"
         property "sonar.binaries", "build/intermediates/classes/debug"
         property "sonar.libraries", libraries
         property "sonar.tests", "src/test/java, src/androidTest/java"
         property "sonar.java.test.binaries", "build/intermediates/class/debug"
-        property "sonar.java.test.libraries", libraries    property "sonar.jacoco.reportPath", "build/jacoco/testDebugUnitTest.exec"
+        property "sonar.java.test.libraries", libraries property "sonar.jacoco.reportPath", "build/jacoco/testDebugUnitTest.exec"
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.junit.reportsPath", "build/test-results/debug"
-        property "sonar.android.lint.report", "build/outputs/lint-results"    }
+        property "sonar.android.lint.report", "build/outputs/lint-results"
+    }
 
 }
