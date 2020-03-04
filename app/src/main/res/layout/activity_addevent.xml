@@ -23,13 +23,10 @@
         android:hint="Enter the event"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter date"
-        android:inputType="date" />
+    <DatePicker
+        android:id="@+id/seldate"
+        android:layout_width="wrap_content"
+        android:layout_height="450dp" />
 
     <Button
         android:id="@+id/add"

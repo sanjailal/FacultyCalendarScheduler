@@ -4,46 +4,65 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class addevent extends AppCompatActivity implements View.OnClickListener {
-    private EditText usermail;
-    private EditText event;
-    private String date;
-    private Button add;
-
+public class personaldetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+    public String[] designationlist = {"Professor", "Assistant Professor", "Associate Professor"};
+    public int listno;
+    public String username;
+    EditText address;
+    EditText phone;
+    EditText email;
+    Button savebutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addevent);
-        usermail = findViewById(R.id.usermail);
-        event = findViewById(R.id.event);
-        add = findViewById(R.id.add);
-        add.setEnabled(true);
-        add.setOnClickListener(addevent.this);
+        setContentView(R.layout.activity_personaldetails);
+        Spinner spin = findViewById(R.id.designation);
+        spin.setOnItemSelectedListener(this);
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, designationlist);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(aa);
+        address = findViewById(R.id.address);
+        phone = findViewById(R.id.phone);
+        email = findViewById(R.id.mail);
+        savebutton = findViewById(R.id.button);
+        savebutton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        Toast.makeText(getApplicationContext(), designationlist[i], Toast.LENGTH_LONG).show();
+        listno = i;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
     @Override
     public void onClick(View view) {
         int i = view.getId();
-        if (i == R.id.add) {
-            DatePicker datePicker = findViewById(R.id.seldate);
-            int day = datePicker.getDayOfMonth();
-            int month = datePicker.getDayOfMonth();
-            int year = datePicker.getYear();
-            date = day + "-" + month + "-" + year;
-            Log.v("san", date);
+        if (i == R.id.button) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            username = user.getEmail();
             new myTask().execute();
         }
     }
@@ -53,7 +72,6 @@ public class addevent extends AppCompatActivity implements View.OnClickListener 
         String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
         String usr = "admin";
         String pwd = "123456789";
-
 
 
         @Override
@@ -77,7 +95,8 @@ public class addevent extends AppCompatActivity implements View.OnClickListener 
                 // st.executeQuery("insert into eventff values(\""+date+"\",\""+add+"\",\""+usermail+"\");");
                 Log.v("san", "before");
                 // ResultSet rs = st.executeQuery("insert into eventff values(\"2-2-2020\",\"Class Cog\",\"soft@gmail.com\");");
-                int sta = st.executeUpdate("insert into eventff values(\"" + date + "\",\"" + event.getText().toString() + "\",\"" + usermail.getText().toString() + "\");");
+                // need to add mail and the spinner menu
+                int sta = st.executeUpdate("insert into personaldetails values(\"" + email.getText().toString() + "\",\"" + phone.getText().toString() + "\",\"" + address.getText().toString() + "\",\"" + designationlist[listno] + "\",\"" + username + "\");");
                 if (sta > 0)
                     Log.v("san", "success");
                 else
@@ -111,5 +130,4 @@ public class addevent extends AppCompatActivity implements View.OnClickListener 
             }
         }
     }
-
 }

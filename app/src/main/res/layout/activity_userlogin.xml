@@ -35,4 +35,14 @@
 
     </ImageButton>
 
+    <Button
+        android:id="@+id/personaldetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="208dp"
+        android:text="press to add personal details"
+        app:layout_constraintEnd_toEndOf="@+id/imageButton1"
+        app:layout_constraintStart_toStartOf="@+id/imageButton1"
+        app:layout_constraintTop_toTopOf="@+id/imageButton1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
