@@ -40,7 +40,7 @@ public class addevent extends AppCompatActivity implements View.OnClickListener 
         if (i == R.id.add) {
             DatePicker datePicker = findViewById(R.id.seldate);
             int day = datePicker.getDayOfMonth();
-            int month = datePicker.getDayOfMonth();
+            int month = datePicker.getMonth();
             int year = datePicker.getYear();
             date = day + "-" + month + "-" + year;
             Log.v("san", date);

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,7 +41,7 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
 
     public String username = "";
     public String daystr="";
-   // private ProgressBar loadingProgressBar =null;
+    public ProgressBar prgbar;
    // private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE, d MMM yyyy");
     public String listviewstr="";
     public ArrayAdapter adapter;
@@ -51,6 +52,7 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_view);
         ButterKnife.bind(this);
+        prgbar = findViewById(R.id.loadingcal);
         single.setOnDateChangedListener(this);
        // loadingProgressBar=(ProgressBar)findViewById(R.id.loadingcal);
         new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
@@ -119,8 +121,7 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-           // loadingProgressBar.setVisibility(View.VISIBLE);
+            prgbar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -137,9 +138,6 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
                 ResultSet rsmon = st.executeQuery("select descp from eventff where date_time=\"" + daystr + "\" and username=\"" + username + "\";");
                 while(rsmon.next())
                     mobileArray.add(rsmon.getString(1)+" ");
-                Log.v("san",listviewstr);
-
-
             }
             catch(Exception E) {
                 E.printStackTrace();
@@ -157,6 +155,7 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            prgbar.setVisibility(View.GONE);
             if(s.equals("1"))
             {
                 Toast.makeText(getApplicationContext(),"Not Connected",Toast.LENGTH_LONG).show();

@@ -6,31 +6,43 @@
     android:orientation="vertical"
     tools:context=".addevent">
 
-    <EditText
-        android:id="@+id/usermail"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter user email"
-        android:inputType="textEmailAddress" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/usermail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Enter user email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Enter the event"
+                android:inputType="textPersonName" />
+
+            <DatePicker
+                android:id="@+id/seldate"
+                android:layout_width="wrap_content"
+                android:layout_height="450dp" />
+
+            <Button
+                android:id="@+id/add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add" />
+        </LinearLayout>
+    </ScrollView>
 
 
-    <EditText
-        android:id="@+id/event"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter the event"
-        android:inputType="textPersonName" />
-
-    <DatePicker
-        android:id="@+id/seldate"
-        android:layout_width="wrap_content"
-        android:layout_height="450dp" />
-
-    <Button
-        android:id="@+id/add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add" />
 </LinearLayout>
