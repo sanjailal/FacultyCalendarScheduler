@@ -1,8 +1,12 @@
 package com.example.facultycalendarscheduler;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -27,6 +31,8 @@ public class Timetable extends AppCompatActivity {
     TimetableView timetable1;
     private Schedule schedule;
     public ProgressBar prgbar;
+    public ArrayList<String> mobileArray = new ArrayList<>();
+    public ArrayList<String> flagevent = new ArrayList<>();
     public String username;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,115 +47,6 @@ public class Timetable extends AppCompatActivity {
         timetable1.setHeaderHighlight(3);
         timetable1.setHeaderHighlight(4);
         timetable1.setHeaderHighlight(5);
-
-//        ArrayList<Schedule> schedules = new ArrayList<>();
-//
-//        schedule = new Schedule();
-//        schedule.setDay(0);
-//        schedule.setClassTitle("19CSE100"+"\n"+"Problem solving and Algorithmic Thinking"); // sets subject
-//        schedule.setClassPlace("C405"+"\n"+"B.Tech-ECE-I Sem-A"); // sets place
-//        schedule.setProfessorName("Aarthi R"); // sets professor
-//        schedule.setStartTime(new Time(8,40)); // sets the beginning of class time (hour,minute)
-//        schedule.setEndTime(new Time(9,30)); // sets the end of class time (hour,minute)
-//        schedules.add(schedule);
-//
-//        schedule = new Schedule();
-//        schedule.setDay(0);
-//        schedule.setClassTitle("15CSE303"+"\n"+"Theory of Computation"); // sets subject
-//        schedule.setClassPlace("A204"+"\n"+"B.Tech-CSE-V Sem-F"); // sets place
-//        schedule.setProfessorName("Aarthi R"); // sets professor
-//        schedule.setStartTime(new Time(14, 0)); // sets the beginning of class time (hour,minute)
-//        schedule.setEndTime(new Time(14,50)); // sets the end of class time (hour,minute)
-//        schedules.add(schedule);
-//
-//        schedule = new Schedule();
-//        schedule.setDay(1);
-//        schedule.setClassTitle("19CSE100"+"\n"+"Problem solving and Algorithmic Thinking"); // sets subject
-//        schedule.setClassPlace("C405"+"\n"+"B.Tech-ECE-I Sem-A"); // sets place
-//        schedule.setProfessorName("Aarthi R"); // sets professor
-//        schedule.setStartTime(new Time(9,30)); // sets the beginning of class time (hour,minute)
-//        schedule.setEndTime(new Time(10,20)); // sets the end of class time (hour,minute)
-//        schedules.add(schedule);
-//
-//        schedule = new Schedule();
-//        schedule.setDay(1);
-//        schedule.setClassTitle("19CSE100"+"\n"+"Problem solving and Algorithmic Thinking"); // sets subject
-//        schedule.setClassPlace("ABI CP Lab2"+"\n"+"B.Tech-ECE-I Sem-A"); // sets place
-//        schedule.setProfessorName("Aarthi R"); // sets professor
-//        schedule.setStartTime(new Time(14,0)); // sets the beginning of class time (hour,minute)
-//        schedule.setEndTime(new Time(16,30)); // sets the end of class time (hour,minute)
-//        schedules.add(schedule);
-//
-//
-//        schedule = new Schedule();
-//        schedule.setDay(2);
-//        schedule.setClassTitle("15CSE303"+"\n"+"Theory of Computation"); // sets subject
-//        schedule.setClassPlace("C203"+"\n"+"B.Tech-CSE-V Sem-F"); // sets place
-//        schedule.setProfessorName("Aarthi R"); // sets professor
-//        schedule.setStartTime(new Time(8,40)); // sets the beginning of class time (hour,minute)
-//        schedule.setEndTime(new Time(9,30)); // sets the end of class time (hour,minute)
-//        schedules.add(schedule);
-//
-//
-//        schedule = new Schedule();
-//        schedule.setDay(2);
-//        schedule.setClassTitle("19CSE100"+"\n"+"Problem solving and Algorithmic Thinking"); // sets subject
-//        schedule.setClassPlace("C405"+"\n"+"B.Tech-ECE-I Sem-A"); // sets place
-//        schedule.setProfessorName("Aarthi R"); // sets professor
-//        schedule.setStartTime(new Time(9,30)); // sets the beginning of class time (hour,minute)
-//        schedule.setEndTime(new Time(10,20)); // sets the end of class time (hour,minute)
-//        schedules.add(schedule);
-//
-//
-//
-//        schedule = new Schedule();
-//        schedule.setDay(2);
-//        schedule.setClassTitle("19CSE100"+"\n"+"Problem solving and Algorithmic Thinking"); // sets subject
-//        schedule.setClassPlace("C405"+"\n"+"B.Tech-ECE-I Sem-A"); // sets place
-//        schedule.setProfessorName("Aarthi R"); // sets professor
-//        schedule.setStartTime(new Time(14,0)); // sets the beginning of class time (hour,minute)
-//        schedule.setEndTime(new Time(16,30)); // sets the end of class time (hour,minute)
-//        schedules.add(schedule);
-//
-//
-//
-//        schedule = new Schedule();
-//        schedule.setDay(3);
-//        schedule.setClassTitle("19CSE100"+"\n"+"Problem solving and Algorithmic Thinking"); // sets subject
-//        schedule.setClassPlace("C405"+"\n"+"B.Tech-ECE-I Sem-A"); // sets place
-//        schedule.setProfessorName("Aarthi R"); // sets professor
-//        schedule.setStartTime(new Time(8,40)); // sets the beginning of class time (hour,minute)
-//        schedule.setEndTime(new Time(9,30)); // sets the end of class time (hour,minute)
-//        schedules.add(schedule);
-//
-//        schedule = new Schedule();
-//        schedule.setDay(3);
-//        schedule.setClassTitle("19CSE100"+"\n"+"Problem solving and Algorithmic Thinking"); // sets subject
-//        schedule.setClassPlace("C405"+"\n"+"B.Tech-ECE-I Sem-A"); // sets place
-//        schedule.setProfessorName("Aarthi R"); // sets professor
-//        schedule.setStartTime(new Time(11,20)); // sets the beginning of class time (hour,minute)
-//        schedule.setEndTime(new Time(12,10)); // sets the end of class time (hour,minute)
-//        schedules.add(schedule);
-//
-//        schedule = new Schedule();
-//        schedule.setDay(4);
-//        schedule.setClassTitle("19CSE100"+"\n"+"Problem solving and Algorithmic Thinking"); // sets subject
-//        schedule.setClassPlace("C405"+"\n"+"B.Tech-ECE-I Sem-A"); // sets place
-//        schedule.setProfessorName("Aarthi R"); // sets professor
-//        schedule.setStartTime(new Time(10,20)); // sets the beginning of class time (hour,minute)
-//        schedule.setEndTime(new Time(11,10)); // sets the end of class time (hour,minute)
-//        schedules.add(schedule);
-//
-//        schedule = new Schedule();
-//        schedule.setDay(4);
-//        schedule.setClassTitle("19CSE100"+"\n"+"Problem solving and Algorithmic Thinking"); // sets subject
-//        schedule.setClassPlace("C405"+"\n"+"B.Tech-ECE-I Sem-A"); // sets place
-//        schedule.setProfessorName("Aarthi R"); // sets professor
-//        schedule.setStartTime(new Time(13,0)); // sets the beginning of class time (hour,minute)
-//        schedule.setEndTime(new Time(13,50)); // sets the end of class time (hour,minute)
-//        schedules.add(schedule);
-//
-
     }
 
     private void initView(){
@@ -171,6 +68,34 @@ public class Timetable extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu
+            (Menu menu) {
+        getMenuInflater().inflate
+                (R.menu.alter_timetable_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected
+            (MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.changetimetable:
+                Intent i = new Intent(this, alter_timetable.class);
+                i.putExtra("event", mobileArray);
+                startActivity(i);
+                break;
+            case R.id.request:
+                Intent j = new Intent(this, alter_timetable.class);
+                j.putExtra("flag", flagevent);
+                startActivity(j);
+                break;
+
+        }
+        return true;
     }
 
     private void givvedetail(ArrayList<String> mobileArray) {
@@ -204,7 +129,7 @@ public class Timetable extends AppCompatActivity {
         String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
         String usr = "admin";
         String pwd = "123456789";
-        private ArrayList<String> mobileArray = new ArrayList<>();
+
 
 
         @Override
@@ -227,6 +152,10 @@ public class Timetable extends AppCompatActivity {
                 ResultSet rsmon = st.executeQuery("select * from timetable_entry where faculty=\"" + username + "\";");
                 while (rsmon.next())
                     mobileArray.add(rsmon.getString(1) + ";" + rsmon.getString(2) + ";" + rsmon.getString(3) + ";" + rsmon.getString(4) + ";" + rsmon.getString(5) + ";" + rsmon.getString(6) + ";" + rsmon.getString(7) + ";" + rsmon.getString(8));
+                ResultSet flag = st.executeQuery("select day,start_hr,start_min,end_hr,end_min,faculty from flag where flag=1 and faculty<>\"" + username + "\"");
+                while (flag.next())
+                    flagevent.add(flag.getString(1) + ";" + flag.getString(2) + ";" + flag.getString(3) + ";" + flag.getString(4) + ";" + flag.getString(5) + ";" + flag.getString(6));
+
             } catch (Exception E) {
                 E.printStackTrace();
 
@@ -250,11 +179,42 @@ public class Timetable extends AppCompatActivity {
             }
             if (s.equals("0")) {
 
-                Log.v("timetable", mobileArray.toString(), null);
+                Log.v("san", mobileArray.toString(), null);
+                Log.v("san", flagevent.toString(), null);
                 givvedetail(mobileArray);
+                if (flagevent != null) {
+                    showdialogbox(flagevent);
+                }
             }
         }
+
+        private void showdialogbox(ArrayList<String> flagevent) {
+            String[] daysep = flagevent.toString().split(",");
+            String[] eventsep = daysep[0].split(";");
+            int day = Integer.parseInt(eventsep[0].substring(1));
+            int starthr = Integer.parseInt(eventsep[1]);
+            int startmin = Integer.parseInt(eventsep[2]);
+            int endhr = Integer.parseInt(eventsep[3]);
+            int endmin = Integer.parseInt(eventsep[4]);
+            String faculty = eventsep[5];
+            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Yes button clicked
+                        //write a func to set flag 0 and then change the faculty to the current faculty
+                        Log.v("san", "Yes", null);
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        Log.v("san", "No", null);
+                        break;
+                }
+            };
+            AlertDialog.Builder builder = new AlertDialog.Builder(Timetable.this);
+            builder.setMessage("Do you need this period " + "\nday= " + day + "\nstart hour= " + starthr + "\nstart minute= " + startmin + "\nEnd hour= " + endhr + "\nEnd minute= " + endmin + "\nFrom Faculty= " + faculty).setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
+
+        }
     }
-
-
 }
