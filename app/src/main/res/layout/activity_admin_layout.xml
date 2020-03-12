@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context=".admin_layout">
 
@@ -11,17 +12,32 @@
         android:id="@+id/addFaculty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="addFaculty" />
+        android:layout_marginLeft="50sp"
+        android:layout_marginTop="250sp"
+        android:layout_marginRight="50sp"
+        android:layout_marginBottom="20sp"
+        android:background="@color/blue1"
+        android:text="Add Faculty"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/addevent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="addEvent" />
+        android:layout_marginLeft="50sp"
+        android:layout_marginRight="50sp"
+        android:layout_marginBottom="20sp"
+        android:background="@color/blue1"
+        android:text="Add Event"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/resetpassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reset Password" />
+        android:layout_marginLeft="50sp"
+        android:layout_marginRight="50sp"
+        android:background="@color/blue1"
+        android:text="Reset Password"
+        android:textColor="@color/white" />
 </LinearLayout>

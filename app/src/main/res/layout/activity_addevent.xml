@@ -8,17 +8,33 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50sp"
+                android:layout_marginTop="40sp"
+                android:layout_marginRight="50sp"
+                android:text="               ADD EVENT"
+                android:textSize="25sp"
+                android:textStyle="bold"></TextView>
+
             <EditText
                 android:id="@+id/usermail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:layout_marginLeft="50sp"
+                android:layout_marginTop="20sp"
+                android:layout_marginRight="50sp"
+                android:layout_marginBottom="15sp"
                 android:ems="10"
                 android:hint="Enter user email"
                 android:inputType="textEmailAddress" />
@@ -27,6 +43,9 @@
                 android:id="@+id/event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="50sp"
+                android:layout_marginRight="50sp"
+                android:layout_marginBottom="15sp"
                 android:ems="10"
                 android:hint="Enter the event"
                 android:inputType="textPersonName" />
@@ -34,13 +53,25 @@
             <DatePicker
                 android:id="@+id/seldate"
                 android:layout_width="wrap_content"
-                android:layout_height="450dp" />
+                android:layout_height="400sp"
+                android:layout_marginLeft="50sp"
+                android:layout_marginRight="50sp"
+                android:layout_marginBottom="15sp"
+                android:dayOfWeekBackground="@color/blue1"
+                android:headerBackground="@color/blue4"
+                android:yearListSelectorColor="@color/blue1" />
 
             <Button
                 android:id="@+id/add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add" />
+                android:layout_marginLeft="50sp"
+                android:layout_marginTop="20sp"
+                android:layout_marginRight="50sp"
+                android:layout_marginBottom="20sp"
+                android:background="@color/blue1"
+                android:text="Add"
+                android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
 

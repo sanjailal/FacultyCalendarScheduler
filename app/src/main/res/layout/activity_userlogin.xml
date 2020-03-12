@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".Userlogin">
 
     <ImageButton
@@ -28,20 +29,23 @@
         android:src="@drawable/calendar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.1">
 
     </ImageButton>
 
     <Button
         android:id="@+id/personaldetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="208dp"
+        android:layout_width="247dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="224dp"
+        android:background="@color/blue1"
         android:text="press to add personal details"
+        android:textColor="@color/background"
         app:layout_constraintEnd_toEndOf="@+id/imageButton1"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/imageButton1"
         app:layout_constraintTop_toTopOf="@+id/imageButton1" />
 

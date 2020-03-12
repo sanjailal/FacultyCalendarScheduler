@@ -18,6 +18,7 @@ public class resetpassword extends AppCompatActivity implements View.OnClickList
     FirebaseAuth auth = FirebaseAuth.getInstance();
     private EditText resetemail;
     private Button reset;
+    private EditText retype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +28,16 @@ public class resetpassword extends AppCompatActivity implements View.OnClickList
         reset = findViewById(R.id.reset);
         reset.setEnabled(true);
         reset.setOnClickListener(this);
+        retype=findViewById(R.id.resetpassword2);
     }
 
     @Override
     public void onClick(View view) {
         int i = view.getId();
-        if (i == R.id.reset) {
+        if ((i == R.id.reset)&&(reset.getText().equals(retype.getText()))) {
             reset();
+        }else{
+            Toast.makeText(this, "Please check the retype password", Toast.LENGTH_SHORT).show();
         }
     }
 

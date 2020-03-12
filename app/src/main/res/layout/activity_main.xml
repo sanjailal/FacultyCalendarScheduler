@@ -10,6 +10,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#F2F6F8"
         android:paddingLeft="16dp"
         android:paddingTop="16dp"
         android:paddingRight="16dp"
@@ -17,6 +18,15 @@
         tools:context=".ui.login.LoginActivity"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="144dp">
+
+        <!--        <Button-->
+        <!--            android:id="@+id/admin_button"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Click here if you are an Admin"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent" />-->
 
         <Button
             android:id="@+id/loginv"
@@ -27,20 +37,23 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="48dp"
             android:layout_marginBottom="64dp"
+            android:background="@color/blue1"
             android:enabled="false"
             android:text="Sign in"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintVertical_bias="0.199" />
 
         <EditText
             android:id="@+id/password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="24dp"
             android:hint="Enter password"
             android:imeActionLabel="Sign in"
@@ -57,7 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="208dp"
             android:layout_marginEnd="24dp"
             android:hint="Email"
 
@@ -68,19 +81,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--        <Button-->
-        <!--            android:id="@+id/admin_button"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="Click here if you are an Admin"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent" />-->
-
         <ProgressBar
             android:id="@+id/loading"
-            android:layout_width="74dp"
-            android:layout_height="57dp"
+            android:layout_width="4dp"
+            android:layout_height="21dp"
             android:layout_gravity="center"
             android:layout_marginStart="32dp"
             android:layout_marginTop="64dp"
@@ -92,6 +96,20 @@
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="@+id/password"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.877" />
+            app:layout_constraintVertical_bias="0.9" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="153dp"
+            android:layout_height="62dp"
+            android:text="Faculty Login"
+            android:textColor="@color/blue4"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.186" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

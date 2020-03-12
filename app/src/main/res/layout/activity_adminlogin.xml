@@ -10,6 +10,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         android:paddingLeft="16dp"
         android:paddingTop="16dp"
         android:paddingRight="16dp"
@@ -25,27 +26,30 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="48dp"
             android:layout_marginBottom="64dp"
+            android:background="@color/blue1"
             android:enabled="false"
             android:text="Sign in"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintVertical_bias="0.334" />
 
         <EditText
             android:id="@+id/password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="36dp"
             android:layout_marginEnd="24dp"
-            android:text="admin01"
             android:hint="Enter password"
             android:imeActionLabel="Sign in"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:selectAllOnFocus="true"
+            android:text="admin01"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/username" />
@@ -53,15 +57,15 @@
         <EditText
             android:id="@+id/username"
             android:layout_width="0dp"
-            android:text="admin@gmail.com"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="212dp"
             android:layout_marginEnd="24dp"
-
             android:hint="Email"
+
             android:inputType="textEmailAddress"
             android:selectAllOnFocus="true"
+            android:text="admin@gmail.com"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -81,5 +85,20 @@
             app:layout_constraintStart_toStartOf="@+id/password"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="188dp"
+            android:layout_height="77dp"
+            android:text="Admin Login"
+            android:textColor="@color/blue1"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.645"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.174" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,40 +3,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context=".personaldetails">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="300px"
+        android:layout_marginTop="400px"
+        android:text="Personal Details"
+        android:textColor="@color/blue2"
+        android:textSize="25sp"
+        android:textStyle="bold"></TextView>
     <EditText
         android:id="@+id/mail"
-        android:layout_width="wrap_content"
+        android:layout_width="378dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="50px"
+        android:layout_marginTop="200px"
         android:ems="10"
         android:hint="Personal Mail"
         android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/phone"
-        android:layout_width="wrap_content"
+        android:layout_width="378dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="50px"
+        android:layout_marginTop="25px"
         android:ems="10"
         android:hint="Phone number"
         android:inputType="phone" />
 
     <EditText
         android:id="@+id/address"
-        android:layout_width="match_parent"
+        android:layout_width="378dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="50px"
+        android:layout_marginTop="25px"
         android:hint="address" />
 
     <Spinner
         android:id="@+id/designation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="378dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50px"
+        android:layout_marginTop="25px" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:layout_marginLeft="50px"
+        android:layout_marginTop="25px"
+        android:layout_marginRight="50px"
+        android:background="@color/blue1"
+        android:text="Save"
+        android:textColor="@color/white" />
 
 </LinearLayout>
