@@ -34,6 +34,7 @@ public class Timetable extends AppCompatActivity {
     public ArrayList<String> mobileArray = new ArrayList<>();
     public ArrayList<String> flagevent = new ArrayList<>();
     public String username;
+    public int fla;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
@@ -124,6 +125,10 @@ public class Timetable extends AppCompatActivity {
         initView();
     }
 
+    private void afterreqapproval() {
+
+    }
+
     private class myTask extends AsyncTask<Void, Void, Void> {
         String s = "";
         String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
@@ -182,8 +187,10 @@ public class Timetable extends AppCompatActivity {
                 Log.v("san", mobileArray.toString(), null);
                 Log.v("san", flagevent.toString(), null);
                 givvedetail(mobileArray);
-                if (flagevent != null) {
+                if (flagevent.size() == 1) {
                     showdialogbox(flagevent);
+                } else if (flagevent.size() > 1) {
+                    Toast.makeText(Timetable.this, "You have multiple requests! Please contact developer for more update", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -197,24 +204,43 @@ public class Timetable extends AppCompatActivity {
             int endhr = Integer.parseInt(eventsep[3]);
             int endmin = Integer.parseInt(eventsep[4]);
             String faculty = eventsep[5];
-            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        //Yes button clicked
-                        //write a func to set flag 0 and then change the faculty to the current faculty
-                        Log.v("san", "Yes", null);
-                        break;
-
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        //No button clicked
-                        Log.v("san", "No", null);
-                        break;
+            String[] daysepmob = mobileArray.toString().split(",");
+            for (int i = 0; i < daysep.length; i++) {
+                String[] eventsepmob = daysepmob[i].split(";");
+                int daymob = Integer.parseInt(eventsepmob[0].substring(1));
+                int starthrmob = Integer.parseInt(eventsepmob[4]);
+                int startminmob = Integer.parseInt(eventsepmob[5]);
+                int endhrmob = Integer.parseInt(eventsepmob[6]);
+                int endminmob = Integer.parseInt(eventsepmob[7]);
+                boolean checkstatus = day != daymob && starthr != starthrmob && startmin != startminmob && endhr != endhrmob && endmin != endminmob;
+                if (checkstatus == true) {
+                    fla = 1;
+                } else {
+                    fla = 0;
                 }
-            };
-            AlertDialog.Builder builder = new AlertDialog.Builder(Timetable.this);
-            builder.setMessage("Do you need this period " + "\nday= " + day + "\nstart hour= " + starthr + "\nstart minute= " + startmin + "\nEnd hour= " + endhr + "\nEnd minute= " + endmin + "\nFrom Faculty= " + faculty).setPositiveButton("Yes", dialogClickListener)
-                    .setNegativeButton("No", dialogClickListener).show();
+                Log.v("san", String.valueOf(checkstatus), null);
+            }
+            if (fla == 1) {
+                DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            //Yes button clicked
+                            //write a func to set flag 0 and then change the faculty to the current faculty
+                            afterreqapproval();
+                            Log.v("san", "Yes", null);
+                            break;
 
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            //No button clicked
+                            Log.v("san", "No", null);
+                            break;
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(Timetable.this);
+                builder.setMessage("Do you need this period " + "\nday= " + day + "\nstart hour= " + starthr + "\nstart minute= " + startmin + "\nEnd hour= " + endhr + "\nEnd minute= " + endmin + "\nFrom Faculty= " + faculty).setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+
+            }
         }
     }
 }
