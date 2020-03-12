@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".personaldetails"></activity>
+        <activity android:name=".request_status"></activity>
+        <activity android:name=".alter_timetable" />
+        <activity android:name=".personaldetails" />
         <activity android:name=".resetpassword" />
         <activity android:name=".addevent" />
         <activity android:name=".Timetable" />
