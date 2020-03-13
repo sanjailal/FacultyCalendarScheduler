@@ -1,63 +1,12 @@
 language: android
-sudo: required
-dist: trusty
-sudo: required
-jdk: oraclejdk8
-
-before_cache:
-  -rm -f sanju/.gradle/caches/modules-2/modules-2.lock
-  -rm -fr sanju/.gradle/caches/*/plugin-resolution/
-cache:
-  directories:
-  -sanju/.gradle/caches/
-  -sanju/.gradle/wrapper/
-env:
-  global:
-    - ANDROID_API=28
-    - EMULATOR_API=21
-    - ANDROID_BUILD_TOOLS=24.0.2
-    - ADB_INSTALL_TIMEOUT=5 # minutes
 android:
   components:
-    # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
-    - tools
+    - tools # to get the new `repository-11.xml`
+    - tools # see https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943)
     - platform-tools
-
-    # The BuildTools version used by your project
     - build-tools-29.0.2
-
-    # The SDK version used to compile your project
     - android-28
-
-    # Additional components
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - addon-google_apis-google-19
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-x86-android-26
-    - sys-img-armeabi-v7a-android-17
-licenses:
-  - android-sdk-preview-license-.+
-  - android-sdk-license-.+
-  - google-gdk-license-.+
-
 before_install:
-  - mkdir "$ANDROID_HOME/licenses" || true
-  - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" >
-  "$ANDROID_HOME/licenses/android-sdk-license"
-  - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
-  - chmod +x gradlew
-  - ./gradlew dependencies || true
-
-before_script:
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-
+  - yes | sdkmanager "platforms;android-28"
 script:
-  - "./gradlew clean build connectedCheck -PdisablePreDex
-    --stacktrace"
+  - ./gradlew build connectedCheck
