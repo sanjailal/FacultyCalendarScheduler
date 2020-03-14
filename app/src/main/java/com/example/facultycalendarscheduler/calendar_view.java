@@ -39,12 +39,12 @@ import butterknife.ButterKnife;
 
 public class calendar_view extends AppCompatActivity implements OnDateSelectedListener {
 
-    public String username = "";
-    public String daystr="";
-    public ProgressBar prgbar;
+    private String username = "";
+    private String daystr = "";
+    private ProgressBar prgbar;
    // private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE, d MMM yyyy");
-    public String listviewstr="";
-    public ArrayAdapter adapter;
+   //public String listviewstr="";
+   private ArrayAdapter adapter;
     @BindView(R2.id.calendarView_single) MaterialCalendarView single;
 
     @Override
@@ -135,7 +135,8 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
                 Log.v("san","comp");
                 s="0";
                 Statement st = con.createStatement();
-                ResultSet rsmon = st.executeQuery("select descp from eventff where date_time=\"" + daystr + "\" and username=\"" + username + "\";");
+                String viewcal = "select descp from eventff where date_time=\"" + daystr + "\" and username=\"" + username + "\";";
+                ResultSet rsmon = st.executeQuery(viewcal);
                 while(rsmon.next())
                     mobileArray.add(rsmon.getString(1)+" ");
             }

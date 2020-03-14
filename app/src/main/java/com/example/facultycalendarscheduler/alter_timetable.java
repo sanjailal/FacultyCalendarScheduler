@@ -24,10 +24,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class alter_timetable extends AppCompatActivity {
-    public String username;
-    public int idx;
-    public ProgressBar prgbar;
-    public ArrayList<String> mobileArray = new ArrayList<>();
+    private String username;
+    private int idx;
+    private ProgressBar prgbar;
+    private ArrayList<String> mobileArray = new ArrayList<>();
     TimetableView timetable1;
     ArrayList<Schedule> schedules = new ArrayList<>();
     private Schedule schedule;
@@ -143,7 +143,8 @@ public class alter_timetable extends AppCompatActivity {
                 Log.v("san", "comp");
                 s = "0";
                 Statement st = con.createStatement();
-                int sta = st.executeUpdate("insert into flag values(1," + day + "," + starthr + "," + startmin + "," + endhr + "," + endmin + ",\"" + username + "\");");
+                String alterreqpush = "insert into flag values(1," + day + "," + starthr + "," + startmin + "," + endhr + "," + endmin + ",\"" + username + "\");";
+                int sta = st.executeUpdate(alterreqpush);
             } catch (Exception E) {
                 E.printStackTrace();
 

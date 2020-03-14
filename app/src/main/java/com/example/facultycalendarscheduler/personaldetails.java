@@ -22,9 +22,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class personaldetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
-    public String[] designationlist = {"Professor", "Assistant Professor", "Associate Professor"};
-    public int listno;
-    public String username;
+    private String[] designationlist = {"Professor", "Assistant Professor", "Associate Professor"};
+    private int listno;
+    private String username;
     EditText address;
     EditText phone;
     EditText email;

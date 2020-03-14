@@ -30,11 +30,12 @@ import java.util.ArrayList;
 public class Timetable extends AppCompatActivity {
     TimetableView timetable1;
     private Schedule schedule;
-    public ProgressBar prgbar;
-    public ArrayList<String> mobileArray = new ArrayList<>();
-    public ArrayList<String> flagevent = new ArrayList<>();
-    public String username;
-    public int fla;
+    Statement st;
+    private ProgressBar prgbar;
+    private ArrayList<String> mobileArray = new ArrayList<>();
+    private ArrayList<String> flagevent = new ArrayList<>();
+    private String username;
+    private int fla;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
@@ -153,11 +154,13 @@ public class Timetable extends AppCompatActivity {
                 con = DriverManager.getConnection(url, usr, pwd);
                 Log.v("san", "comp");
                 s = "0";
-                Statement st = con.createStatement();
-                ResultSet rsmon = st.executeQuery("select * from timetable_entry where faculty=\"" + username + "\";");
+                st = con.createStatement();
+                String viewtt = "select * from timetable_entry where faculty=\"" + username + "\";";
+                ResultSet rsmon = st.executeQuery(viewtt);
                 while (rsmon.next())
                     mobileArray.add(rsmon.getString(1) + ";" + rsmon.getString(2) + ";" + rsmon.getString(3) + ";" + rsmon.getString(4) + ";" + rsmon.getString(5) + ";" + rsmon.getString(6) + ";" + rsmon.getString(7) + ";" + rsmon.getString(8));
-                ResultSet flag = st.executeQuery("select day,start_hr,start_min,end_hr,end_min,faculty from flag where flag=1 and faculty<>\"" + username + "\"");
+                String viewreq = "select day,start_hr,start_min,end_hr,end_min,faculty from flag where flag=1 and faculty<>\"" + username + "\"";
+                ResultSet flag = st.executeQuery(viewreq);
                 while (flag.next())
                     flagevent.add(flag.getString(1) + ";" + flag.getString(2) + ";" + flag.getString(3) + ";" + flag.getString(4) + ";" + flag.getString(5) + ";" + flag.getString(6));
 
@@ -170,6 +173,8 @@ public class Timetable extends AppCompatActivity {
                     con.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
+                } finally {
+                    Log.v("san", "try", null);
                 }
             }
             return null;
@@ -211,7 +216,7 @@ public class Timetable extends AppCompatActivity {
                 int starthrmob = Integer.parseInt(eventsepmob[4]);
                 int startminmob = Integer.parseInt(eventsepmob[5]);
                 int endhrmob = Integer.parseInt(eventsepmob[6]);
-                int endminmob = Integer.parseInt(eventsepmob[7]);
+                int endminmob = Integer.parseInt(eventsepmob[7].substring(0, 2));
                 boolean checkstatus = day != daymob && starthr != starthrmob && startmin != startminmob && endhr != endhrmob && endmin != endminmob;
                 if (checkstatus == true) {
                     fla = 1;
