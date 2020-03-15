@@ -315,7 +315,7 @@ public class Timetable extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Not Connected", Toast.LENGTH_LONG).show();
             }
             if (s.equals("0")) {
-
+                new myTask().execute();
                 Toast.makeText(getApplicationContext(), "Changed succesfully", Toast.LENGTH_LONG).show();
             }
         }
