@@ -36,11 +36,12 @@ public class Timetable extends AppCompatActivity {
     private ArrayList<String> flagevent = new ArrayList<>();
     private String username;
     private int fla;
-    int daymob;
-    int starthrmob;
-    int startminmob;
-    int endhrmob;
-    int endminmob;
+    int day;
+    int starthr;
+    int startmin;
+    int endhr;
+    int endmin;
+    String faculty;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
@@ -127,6 +128,7 @@ public class Timetable extends AppCompatActivity {
             schedule.setProfessorName(profname); // sets professor
             schedule.setStartTime(new Time(starthr, startmin)); // sets the beginning of class time (hour,minute)
             schedule.setEndTime(new Time(endhr, endmin)); // sets the end of class time (hour,minute)
+            Log.v("san", String.valueOf(endmin), null);
             schedules.add(schedule);
         }
         timetable1.add(schedules);
@@ -208,20 +210,24 @@ public class Timetable extends AppCompatActivity {
         private void showdialogbox(ArrayList<String> flagevent) {
             String[] daysep = flagevent.toString().split(",");
             String[] eventsep = daysep[0].split(";");
-            int day = Integer.parseInt(eventsep[0].substring(1));
-            int starthr = Integer.parseInt(eventsep[1]);
-            int startmin = Integer.parseInt(eventsep[2]);
-            int endhr = Integer.parseInt(eventsep[3]);
-            int endmin = Integer.parseInt(eventsep[4]);
-            String faculty = eventsep[5];
+            day = Integer.parseInt(eventsep[0].substring(1));
+            starthr = Integer.parseInt(eventsep[1]);
+            startmin = Integer.parseInt(eventsep[2]);
+            endhr = Integer.parseInt(eventsep[3]);
+            endmin = Integer.parseInt(eventsep[4]);
+            faculty = eventsep[5].replace("]", "/a");
+
+            String[] facult = faculty.split("/");
+
+            faculty = facult[0];
             String[] daysepmob = mobileArray.toString().split(",");
             for (int i = 0; i < daysep.length; i++) {
                 String[] eventsepmob = daysepmob[i].split(";");
-                daymob = Integer.parseInt(eventsepmob[0].substring(1));
-                starthrmob = Integer.parseInt(eventsepmob[4]);
-                startminmob = Integer.parseInt(eventsepmob[5]);
-                endhrmob = Integer.parseInt(eventsepmob[6]);
-                endminmob = Integer.parseInt(eventsepmob[7].substring(0, 2));
+                int daymob = Integer.parseInt(eventsepmob[0].substring(1));
+                int starthrmob = Integer.parseInt(eventsepmob[4]);
+                int startminmob = Integer.parseInt(eventsepmob[5]);
+                int endhrmob = Integer.parseInt(eventsepmob[6]);
+                int endminmob = Integer.parseInt(eventsepmob[7].substring(0, 2));
                 boolean checkstatus = day != daymob && starthr != starthrmob && startmin != startminmob && endhr != endhrmob && endmin != endminmob;
                 if (!checkstatus) {
 
@@ -280,10 +286,12 @@ public class Timetable extends AppCompatActivity {
                 Statement st = con.createStatement();
                 // st.executeQuery("insert into eventff values(\""+date+"\",\""+add+"\",\""+usermail+"\");");
                 // ResultSet rs = st.executeQuery("insert into eventff values(\"2-2-2020\",\"Class Cog\",\"soft@gmail.com\");");
-                String alterperiod = "update flag set faculty=\"" + username + "\",flag=0 where flag=1 and day=" + daymob + " and start_hr=" + starthrmob + " and start_min=" + startminmob + " and end_hr=" + endhrmob + " and end_min=" + endminmob + ";";
+                String alterflag = "update flag set faculty=\"" + username + "\",flag=0 where flag=1 and day=" + day + " and start_hr=" + starthr + " and start_min=" + startmin + " and end_hr=" + endhr + " and end_min=" + endmin + ";";
+                String alterperiod = "update timetable_entry set faculty=\"" + username + "\" where day=" + day + " and start_hr=" + starthr + " and start_min=" + startmin + " and end_hr=" + endhr + " and end_min=" + endmin + " and faculty=\"" + faculty + "\";";
                 Log.v("san", alterperiod, null);
                 int sta = st.executeUpdate(alterperiod);
-                if (sta > 0)
+                int sta1 = st.executeUpdate(alterflag);
+                if (sta + sta1 > 1)
                     Log.v("san", "success");
                 else
                     Log.v("san", "fail");
