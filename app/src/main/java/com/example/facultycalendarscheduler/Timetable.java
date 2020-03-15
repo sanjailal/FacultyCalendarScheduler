@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -125,7 +126,6 @@ public class Timetable extends AppCompatActivity {
             schedule.setProfessorName(profname); // sets professor
             schedule.setStartTime(new Time(starthr, startmin)); // sets the beginning of class time (hour,minute)
             schedule.setEndTime(new Time(endhr, endmin)); // sets the end of class time (hour,minute)
-            Log.v("san", String.valueOf(endmin), null);
             schedules.add(schedule);
         }
         timetable1.add(schedules);
@@ -218,20 +218,20 @@ public class Timetable extends AppCompatActivity {
 
             faculty = facult[0];
             String[] daysepmob = mobileArray.toString().split(",");
-            for (int i = 0; i < daysep.length; i++) {
+            for (int i = 0; i < daysepmob.length; i++) {
                 String[] eventsepmob = daysepmob[i].split(";");
                 int daymob = Integer.parseInt(eventsepmob[0].substring(1));
                 int starthrmob = Integer.parseInt(eventsepmob[4]);
                 int startminmob = Integer.parseInt(eventsepmob[5]);
                 int endhrmob = Integer.parseInt(eventsepmob[6]);
                 int endminmob = Integer.parseInt(eventsepmob[7].substring(0, 2));
-                boolean checkstatus = day != daymob && starthr != starthrmob && startmin != startminmob && endhr != endhrmob && endmin != endminmob;
+                Log.v("san", day + " " + starthr + " " + startmin + " " + endhr + " " + endmin);
+                Log.v("san", daymob + " " + starthrmob + " " + startminmob + " " + endhrmob + " " + endminmob);
+                boolean checkstatus = (day == daymob) && (starthr == starthrmob) && (startmin == startminmob) && (endhr == endhrmob) && (endmin == endminmob);
+                Log.v("san", String.valueOf(checkstatus), null);
                 if (!checkstatus) {
                     fla = 1;
-                } else {
-                    fla = 0;
                 }
-                Log.v("san", String.valueOf(checkstatus), null);
             }
             if (fla == 1) {
                 DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
@@ -315,6 +315,12 @@ public class Timetable extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Not Connected", Toast.LENGTH_LONG).show();
             }
             if (s.equals("0")) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }, 3000);
                 new myTask().execute();
                 Toast.makeText(getApplicationContext(), "Changed succesfully", Toast.LENGTH_LONG).show();
             }
