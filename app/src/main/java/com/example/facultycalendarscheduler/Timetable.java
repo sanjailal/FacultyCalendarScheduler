@@ -52,8 +52,7 @@ public class Timetable extends AppCompatActivity {
     }
 
     private void initView(){
-
-
+        
         timetable1.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedListener() {
             @Override
             public void OnStickerSelected(int idx, ArrayList<Schedule> schedules) {
@@ -62,7 +61,9 @@ public class Timetable extends AppCompatActivity {
                         new AlertDialog.Builder(
                                 Timetable.this);
                 al.setTitle("Timetable");
+
                 al.setMessage(schedules.get(idx).getClassTitle()+"\n"+schedules.get(idx).getClassPlace()+"\n"+schedules.get(idx).getStartTime().getHour()+":"+schedules.get(idx).getStartTime().getMinute()+"-"+schedules.get(idx).getEndTime().getHour()+":"+schedules.get(idx).getEndTime().getMinute());
+                Log.d("id", String.valueOf(idx));
                 al.setCancelable(true);
                 al.show();
 
@@ -112,7 +113,7 @@ public class Timetable extends AppCompatActivity {
             int starthr = Integer.parseInt(eventsep[4]);
             int startmin = Integer.parseInt(eventsep[5]);
             int endhr = Integer.parseInt(eventsep[6]);
-            int endmin = Integer.parseInt(eventsep[7].substring(0, 2));
+            int endmin = Integer.parseInt(eventsep[7].substring(0,2));
             schedule = new Schedule();
             schedule.setDay(day);
             schedule.setClassTitle(classtitle); // sets subject
@@ -218,7 +219,7 @@ public class Timetable extends AppCompatActivity {
                 int endhrmob = Integer.parseInt(eventsepmob[6]);
                 int endminmob = Integer.parseInt(eventsepmob[7].substring(0, 2));
                 boolean checkstatus = day != daymob && starthr != starthrmob && startmin != startminmob && endhr != endhrmob && endmin != endminmob;
-                if (checkstatus == true) {
+                if (!checkstatus) {
                     fla = 1;
                 } else {
                     fla = 0;
