@@ -36,6 +36,11 @@ public class Timetable extends AppCompatActivity {
     private ArrayList<String> flagevent = new ArrayList<>();
     private String username;
     private int fla;
+    int daymob;
+    int starthrmob;
+    int startminmob;
+    int endhrmob;
+    int endminmob;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
@@ -52,7 +57,8 @@ public class Timetable extends AppCompatActivity {
     }
 
     private void initView(){
-        
+
+
         timetable1.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedListener() {
             @Override
             public void OnStickerSelected(int idx, ArrayList<Schedule> schedules) {
@@ -127,9 +133,7 @@ public class Timetable extends AppCompatActivity {
         initView();
     }
 
-    private void afterreqapproval() {
 
-    }
 
     private class myTask extends AsyncTask<Void, Void, Void> {
         String s = "";
@@ -213,13 +217,14 @@ public class Timetable extends AppCompatActivity {
             String[] daysepmob = mobileArray.toString().split(",");
             for (int i = 0; i < daysep.length; i++) {
                 String[] eventsepmob = daysepmob[i].split(";");
-                int daymob = Integer.parseInt(eventsepmob[0].substring(1));
-                int starthrmob = Integer.parseInt(eventsepmob[4]);
-                int startminmob = Integer.parseInt(eventsepmob[5]);
-                int endhrmob = Integer.parseInt(eventsepmob[6]);
-                int endminmob = Integer.parseInt(eventsepmob[7].substring(0, 2));
+                daymob = Integer.parseInt(eventsepmob[0].substring(1));
+                starthrmob = Integer.parseInt(eventsepmob[4]);
+                startminmob = Integer.parseInt(eventsepmob[5]);
+                endhrmob = Integer.parseInt(eventsepmob[6]);
+                endminmob = Integer.parseInt(eventsepmob[7].substring(0, 2));
                 boolean checkstatus = day != daymob && starthr != starthrmob && startmin != startminmob && endhr != endhrmob && endmin != endminmob;
                 if (!checkstatus) {
+
                     fla = 1;
                 } else {
                     fla = 0;
@@ -230,9 +235,7 @@ public class Timetable extends AppCompatActivity {
                 DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                     switch (which) {
                         case DialogInterface.BUTTON_POSITIVE:
-                            //Yes button clicked
-                            //write a func to set flag 0 and then change the faculty to the current faculty
-                            afterreqapproval();
+                            new myTaskalter().execute();
                             Log.v("san", "Yes", null);
                             break;
 
@@ -249,4 +252,69 @@ public class Timetable extends AppCompatActivity {
             }
         }
     }
+
+    private class myTaskalter extends AsyncTask<Void, Void, Void> {
+        String s = "";
+        String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
+        String usr = "admin";
+        String pwd = "123456789";
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            // loadingProgressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Connection con = null;
+            try {
+
+                Class.forName("com.mysql.jdbc.Driver");
+                Log.v("san", "pending");
+                con = DriverManager.getConnection(url, usr, pwd);
+                Log.v("san", "comp");
+                s = "0";
+                Statement st = con.createStatement();
+                // st.executeQuery("insert into eventff values(\""+date+"\",\""+add+"\",\""+usermail+"\");");
+                // ResultSet rs = st.executeQuery("insert into eventff values(\"2-2-2020\",\"Class Cog\",\"soft@gmail.com\");");
+                String alterperiod = "update flag set faculty=\"" + username + "\",flag=0 where flag=1 and day=" + daymob + " and start_hr=" + starthrmob + " and start_min=" + startminmob + " and end_hr=" + endhrmob + " and end_min=" + endminmob + ";";
+                Log.v("san", alterperiod, null);
+                int sta = st.executeUpdate(alterperiod);
+                if (sta > 0)
+                    Log.v("san", "success");
+                else
+                    Log.v("san", "fail");
+
+            } catch (Exception E) {
+                E.printStackTrace();
+
+                s = "1";
+            } finally {
+                try {
+                    if (con != null) {
+                        con.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (s.equals("1")) {
+                Toast.makeText(getApplicationContext(), "Not Connected", Toast.LENGTH_LONG).show();
+            }
+            if (s.equals("0")) {
+
+                Toast.makeText(getApplicationContext(), "Changed succesfully", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 }

@@ -14,5 +14,4 @@ public class global_testTest {
     public void test_password() {
         assertEquals(global_test.test_password("softENGINEhhhh"), true);
     }
-
 }

@@ -78,6 +78,7 @@ public class addevent extends AppCompatActivity implements View.OnClickListener 
                 Log.v("san", "before");
                 // ResultSet rs = st.executeQuery("insert into eventff values(\"2-2-2020\",\"Class Cog\",\"soft@gmail.com\");");
                 String insertevent = "insert into eventff values(\"" + date + "\",\"" + event.getText().toString() + "\",\"" + usermail.getText().toString() + "\");";
+                Log.v("san", insertevent, null);
                 int sta = st.executeUpdate(insertevent);
                 if (sta > 0)
                     Log.v("san", "success");
