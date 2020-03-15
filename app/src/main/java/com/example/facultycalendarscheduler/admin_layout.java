@@ -2,6 +2,8 @@ package com.example.facultycalendarscheduler;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -43,5 +45,22 @@ public class admin_layout extends AppCompatActivity implements View.OnClickListe
             Intent resetpasintent = new Intent(this, resetpassword.class);
             startActivity(resetpasintent);
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu
+            (Menu menu) {
+        getMenuInflater().inflate
+                (R.menu.logout, menu);
+
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected
+            (MenuItem item) {
+
+        Intent i1=new Intent(this,Adminlogin.class);
+        startActivity(i1);
+
+        return true;
     }
 }

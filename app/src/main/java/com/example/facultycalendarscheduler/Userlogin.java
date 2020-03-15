@@ -2,6 +2,8 @@ package com.example.facultycalendarscheduler;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -39,5 +41,22 @@ public class Userlogin extends AppCompatActivity implements View.OnClickListener
             Intent perdetails = new Intent(this, personaldetails.class);
             startActivity(perdetails);
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu
+            (Menu menu) {
+        getMenuInflater().inflate
+                (R.menu.logout, menu);
+
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected
+            (MenuItem item) {
+
+                Intent i1=new Intent(this,MainActivity.class);
+                startActivity(i1);
+
+        return true;
     }
 }

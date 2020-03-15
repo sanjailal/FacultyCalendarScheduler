@@ -59,22 +59,21 @@ public class Timetable extends AppCompatActivity {
 
     private void initView(){
 
-
         timetable1.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedListener() {
             @Override
             public void OnStickerSelected(int idx, ArrayList<Schedule> schedules) {
                 //String str=schedules.get(idx).getClassPlace();
-                AlertDialog.Builder al =
-                        new AlertDialog.Builder(
-                                Timetable.this);
-                al.setTitle("Timetable");
-
-                al.setMessage(schedules.get(idx).getClassTitle()+"\n"+schedules.get(idx).getClassPlace()+"\n"+schedules.get(idx).getStartTime().getHour()+":"+schedules.get(idx).getStartTime().getMinute()+"-"+schedules.get(idx).getEndTime().getHour()+":"+schedules.get(idx).getEndTime().getMinute());
-                Log.d("id", String.valueOf(idx));
-                al.setCancelable(true);
-                al.show();
-
-                al.setIcon(R.drawable.ic_launcher_background);
+//                AlertDialog.Builder al =
+//                        new AlertDialog.Builder(
+//                                Timetable.this);
+//                al.setTitle("Timetable");
+//
+//                al.setMessage(schedules.get(idx).getClassTitle()+"\n"+schedules.get(idx).getClassPlace()+"\n"+schedules.get(idx).getStartTime().getHour()+":"+schedules.get(idx).getStartTime().getMinute()+"-"+schedules.get(idx).getEndTime().getHour()+":"+schedules.get(idx).getEndTime().getMinute());
+//                Log.d("id", String.valueOf(idx));
+//                al.setCancelable(true);
+//                al.show();
+//
+//                al.setIcon(R.drawable.ic_launcher_background);
 
             }
         });
@@ -98,12 +97,10 @@ public class Timetable extends AppCompatActivity {
                 i.putExtra("event", mobileArray);
                 startActivity(i);
                 break;
-            case R.id.request:
-                Intent j = new Intent(this, alter_timetable.class);
-                j.putExtra("flag", flagevent);
-                startActivity(j);
-                break;
 
+            case R.id.Logout:
+                Intent i1=new Intent(this,MainActivity.class);
+                startActivity(i1);
         }
         return true;
     }
@@ -230,7 +227,6 @@ public class Timetable extends AppCompatActivity {
                 int endminmob = Integer.parseInt(eventsepmob[7].substring(0, 2));
                 boolean checkstatus = day != daymob && starthr != starthrmob && startmin != startminmob && endhr != endhrmob && endmin != endminmob;
                 if (!checkstatus) {
-
                     fla = 1;
                 } else {
                     fla = 0;
