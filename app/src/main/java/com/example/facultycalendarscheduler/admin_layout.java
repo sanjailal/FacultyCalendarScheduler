@@ -36,11 +36,11 @@ public class admin_layout extends AppCompatActivity implements View.OnClickListe
             startActivity(Signup);
         }
         if (i == R.id.addevent) {
-            Intent addeventt = new Intent(this, addevent.class);
+            Intent addeventt = new Intent(this,addevent.class);
             startActivity(addeventt);
         }
         if (i == R.id.resetpassword) {
-            Intent resetpasintent = new Intent(this, resetpassword.class);
+            Intent resetpasintent = new Intent(this,resetpassword.class);
             startActivity(resetpasintent);
         }
     }
