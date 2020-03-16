@@ -1,6 +1,5 @@
 package com.example.facultycalendarscheduler;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -100,9 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             loginButton.setVisibility(View.VISIBLE);
             Toast.makeText(MainActivity.this,"Authentication success",Toast.LENGTH_SHORT).show();
             Log.d("san","success",null);
-            // put an intent here to jump to your next layout @uday
-            //*******************************************************************************************************
-            //new myTask().execute();
             Intent i=new Intent(MainActivity.this,Userlogin.class);
 
             startActivity(i);
@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 a2.setCancelable(true);
                 a2.show();
                 break;
+            default:
         }
         return true;
     }

@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,18 +24,25 @@ import java.sql.Statement;
 
 public class alter_timetable extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
-    private FirebaseUser user;
+
     private String username;
-    private Spinner sp;
-    private EditText ed1,ed2,ed3,ed4;
-    private Button btn;
+    private EditText ed1;
+    private EditText ed2;
+    private EditText ed3;
+    private EditText ed4;
     private int dayselected;
+    private ProgressBar prg;
     private String[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alter_timetable);
+        FirebaseUser user;
+        Spinner sp;
+        Button btn;
+        prg = findViewById(R.id.progressBar2);
+        prg.setVisibility(View.INVISIBLE);
         user = FirebaseAuth.getInstance().getCurrentUser();
         username = user.getEmail();
          sp=findViewById(R.id.spinner);
@@ -61,21 +69,19 @@ public class alter_timetable extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        //when nothing is selected
     }
 
     @Override
     public void onClick(View v) {
-        new myTask().execute();
+        new MyTask().execute();
     }
 
-    private class myTask extends AsyncTask<Void, Void, Void> {
+    private class MyTask extends AsyncTask<Void, Void, Void> {
         String s = "";
         String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
         String usr = "admin";
         String pwd = "123456789";
-        //        String[] daysep = mobileArray.toString().split(",");
-//        String[] eventsep = daysep[0].split(";");
         int day = dayselected;
         int starthr = Integer.parseInt(ed1.getText().toString());
         int startmin = Integer.parseInt(ed2.getText().toString());
@@ -85,6 +91,7 @@ public class alter_timetable extends AppCompatActivity implements AdapterView.On
 
         @Override
         protected void onPreExecute() {
+            prg.setVisibility(View.VISIBLE);
             super.onPreExecute();
 
         }
@@ -93,8 +100,6 @@ public class alter_timetable extends AppCompatActivity implements AdapterView.On
         protected Void doInBackground(Void... voids) {
             Connection con = null;
             try {
-
-                Class.forName("com.mysql.jdbc.Driver");
                 Log.v("san", "pending");
                 con = DriverManager.getConnection(url, usr, pwd);
                 Log.v("san", "comp");
@@ -108,14 +113,14 @@ public class alter_timetable extends AppCompatActivity implements AdapterView.On
                     Log.v("san", "fail", null);
                 }
             } catch (Exception E) {
-                E.printStackTrace();
+                Log.e("error", String.valueOf(E));
 
                 s = "1";
             } finally {
                 try {
                     con.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e("error", String.valueOf(e));
                 }
             }
             return null;
@@ -123,6 +128,7 @@ public class alter_timetable extends AppCompatActivity implements AdapterView.On
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            prg.setVisibility(View.INVISIBLE);
             super.onPostExecute(aVoid);
             if (s.equals("1")) {
                 Toast.makeText(getApplicationContext(), "Contact Developer", Toast.LENGTH_LONG).show();

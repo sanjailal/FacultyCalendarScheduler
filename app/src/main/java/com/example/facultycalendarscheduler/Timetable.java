@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,54 +29,37 @@ import java.util.ArrayList;
 
 public class Timetable extends AppCompatActivity {
     TimetableView timetable1;
-    private Schedule schedule;
     Statement st;
     private ProgressBar prgbar;
     private ArrayList<String> mobileArray = new ArrayList<>();
     private ArrayList<String> flagevent = new ArrayList<>();
     private String username;
     private int fla;
+    int gloflag;
     int day;
     int starthr;
     int startmin;
     int endhr;
     int endmin;
     String faculty;
+    String err = "error";
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         username = user.getEmail();
         prgbar = findViewById(R.id.progressBar);
-        new myTask().execute();
+        gloflag = 0;
+        new MyTask().execute();
         timetable1=findViewById(R.id.timetable);
         timetable1.setHeaderHighlight(1);
         timetable1.setHeaderHighlight(2);
         timetable1.setHeaderHighlight(3);
         timetable1.setHeaderHighlight(4);
         timetable1.setHeaderHighlight(5);
-    }
 
-    private void initView(){
-
-        timetable1.setOnStickerSelectEventListener(new TimetableView.OnStickerSelectedListener() {
-            @Override
-            public void OnStickerSelected(int idx, ArrayList<Schedule> schedules) {
-                //String str=schedules.get(idx).getClassPlace();
-//                AlertDialog.Builder al =
-//                        new AlertDialog.Builder(
-//                                Timetable.this);
-//                al.setTitle("Timetable");
-//
-//                al.setMessage(schedules.get(idx).getClassTitle()+"\n"+schedules.get(idx).getClassPlace()+"\n"+schedules.get(idx).getStartTime().getHour()+":"+schedules.get(idx).getStartTime().getMinute()+"-"+schedules.get(idx).getEndTime().getHour()+":"+schedules.get(idx).getEndTime().getMinute());
-//                Log.d("id", String.valueOf(idx));
-//                al.setCancelable(true);
-//                al.show();
-//
-//                al.setIcon(R.drawable.ic_launcher_background);
-
-            }
-        });
     }
 
     @Override
@@ -102,39 +84,14 @@ public class Timetable extends AppCompatActivity {
             case R.id.Logout:
                 Intent i1=new Intent(this,MainActivity.class);
                 startActivity(i1);
+            default:
+
         }
         return true;
     }
 
-    private void givvedetail(ArrayList<String> mobileArray) {
-        ArrayList<Schedule> schedules = new ArrayList<>();
-        String[] daysep = mobileArray.toString().split(",");
-        for (int i = 0; i < daysep.length; i++) {
-            String[] eventsep = daysep[i].split(";");
-            int day = Integer.parseInt(eventsep[0].substring(1));
-            String classtitle = eventsep[1];
-            String classplace = eventsep[2];
-            String profname = eventsep[3];
-            int starthr = Integer.parseInt(eventsep[4]);
-            int startmin = Integer.parseInt(eventsep[5]);
-            int endhr = Integer.parseInt(eventsep[6]);
-            int endmin = Integer.parseInt(eventsep[7].substring(0,2));
-            schedule = new Schedule();
-            schedule.setDay(day);
-            schedule.setClassTitle(classtitle); // sets subject
-            schedule.setClassPlace(classplace); // sets place
-            schedule.setProfessorName(profname); // sets professor
-            schedule.setStartTime(new Time(starthr, startmin)); // sets the beginning of class time (hour,minute)
-            schedule.setEndTime(new Time(endhr, endmin)); // sets the end of class time (hour,minute)
-            schedules.add(schedule);
-        }
-        timetable1.add(schedules);
-        initView();
-    }
 
-
-
-    private class myTask extends AsyncTask<Void, Void, Void> {
+    private class MyTask extends AsyncTask<Void, Void, Void> {
         String s = "";
         String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
         String usr = "admin";
@@ -169,14 +126,14 @@ public class Timetable extends AppCompatActivity {
                     flagevent.add(flag.getString(1) + ";" + flag.getString(2) + ";" + flag.getString(3) + ";" + flag.getString(4) + ";" + flag.getString(5) + ";" + flag.getString(6));
 
             } catch (Exception E) {
-                E.printStackTrace();
+                Log.e(err, String.valueOf(E));
 
                 s = "1";
             } finally {
                 try {
                     con.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(err, String.valueOf(e));
                 } finally {
                     Log.v("san", "try", null);
                 }
@@ -187,7 +144,7 @@ public class Timetable extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            prgbar.setVisibility(View.GONE);
+            prgbar.setVisibility(View.INVISIBLE);
             if (s.equals("1")) {
                 Toast.makeText(getApplicationContext(), "Not Connected", Toast.LENGTH_LONG).show();
             }
@@ -196,12 +153,39 @@ public class Timetable extends AppCompatActivity {
                 Log.v("san", mobileArray.toString(), null);
                 Log.v("san", flagevent.toString(), null);
                 givvedetail(mobileArray);
-                if (flagevent.size() == 1) {
+                if (flagevent.size() == 1 && gloflag == 0) {
                     showdialogbox(flagevent);
                 } else if (flagevent.size() > 1) {
                     Toast.makeText(Timetable.this, "You have multiple requests! Please contact developer for more update", Toast.LENGTH_LONG).show();
                 }
             }
+        }
+
+        private void givvedetail(ArrayList<String> mobileArray) {
+            Schedule schedule;
+            ArrayList<Schedule> schedules = new ArrayList<>();
+            String[] daysep = mobileArray.toString().split(",");
+            for (int i = 0; i < daysep.length; i++) {
+                String[] eventsep = daysep[i].split(";");
+                int dayt = Integer.parseInt(eventsep[0].substring(1));
+                String classtitle = eventsep[1];
+                String classplace = eventsep[2];
+                String profname = eventsep[3];
+                int starthrt = Integer.parseInt(eventsep[4]);
+                int startmint = Integer.parseInt(eventsep[5]);
+                int endhrt = Integer.parseInt(eventsep[6]);
+                int endmint = Integer.parseInt(eventsep[7].substring(0, 2));
+                schedule = new Schedule();
+                schedule.setDay(dayt);
+                schedule.setClassTitle(classtitle); // sets subject
+                schedule.setClassPlace(classplace); // sets place
+                schedule.setProfessorName(profname); // sets professor
+                schedule.setStartTime(new Time(starthrt, startmint)); // sets the beginning of class time (hour,minute)
+                schedule.setEndTime(new Time(endhrt, endmint)); // sets the end of class time (hour,minute)
+                schedules.add(schedule);
+            }
+            timetable1.add(schedules);
+
         }
 
         private void showdialogbox(ArrayList<String> flagevent) {
@@ -237,7 +221,7 @@ public class Timetable extends AppCompatActivity {
                 DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                     switch (which) {
                         case DialogInterface.BUTTON_POSITIVE:
-                            new myTaskalter().execute();
+                            new MyTaskalter().execute();
                             Log.v("san", "Yes", null);
                             break;
 
@@ -245,6 +229,8 @@ public class Timetable extends AppCompatActivity {
                             //No button clicked
                             Log.v("san", "No", null);
                             break;
+                        default:
+
                     }
                 };
                 AlertDialog.Builder builder = new AlertDialog.Builder(Timetable.this);
@@ -255,7 +241,7 @@ public class Timetable extends AppCompatActivity {
         }
     }
 
-    private class myTaskalter extends AsyncTask<Void, Void, Void> {
+    private class MyTaskalter extends AsyncTask<Void, Void, Void> {
         String s = "";
         String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
         String usr = "admin";
@@ -264,24 +250,20 @@ public class Timetable extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+            prgbar.setVisibility(View.VISIBLE);
             super.onPreExecute();
 
-            // loadingProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             Connection con = null;
             try {
-
-                Class.forName("com.mysql.jdbc.Driver");
                 Log.v("san", "pending");
                 con = DriverManager.getConnection(url, usr, pwd);
                 Log.v("san", "comp");
                 s = "0";
                 Statement st = con.createStatement();
-                // st.executeQuery("insert into eventff values(\""+date+"\",\""+add+"\",\""+usermail+"\");");
-                // ResultSet rs = st.executeQuery("insert into eventff values(\"2-2-2020\",\"Class Cog\",\"soft@gmail.com\");");
                 String alterflag = "update flag set faculty=\"" + username + "\",flag=0 where flag=1 and day=" + day + " and start_hr=" + starthr + " and start_min=" + startmin + " and end_hr=" + endhr + " and end_min=" + endmin + ";";
                 String alterperiod = "update timetable_entry set faculty=\"" + username + "\" where day=" + day + " and start_hr=" + starthr + " and start_min=" + startmin + " and end_hr=" + endhr + " and end_min=" + endmin + " and faculty=\"" + faculty + "\";";
                 Log.v("san", alterperiod, null);
@@ -293,7 +275,7 @@ public class Timetable extends AppCompatActivity {
                     Log.v("san", "fail");
 
             } catch (Exception E) {
-                E.printStackTrace();
+                Log.e(err, String.valueOf(E));
 
                 s = "1";
             } finally {
@@ -302,7 +284,7 @@ public class Timetable extends AppCompatActivity {
                         con.close();
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(err, String.valueOf(e));
                 }
             }
             return null;
@@ -310,18 +292,14 @@ public class Timetable extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            prgbar.setVisibility(View.INVISIBLE);
             super.onPostExecute(aVoid);
             if (s.equals("1")) {
                 Toast.makeText(getApplicationContext(), "Not Connected", Toast.LENGTH_LONG).show();
             }
             if (s.equals("0")) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                }, 3000);
-                new myTask().execute();
+                gloflag = 1;
+                new MyTask().execute();
                 Toast.makeText(getApplicationContext(), "Changed succesfully", Toast.LENGTH_LONG).show();
             }
         }

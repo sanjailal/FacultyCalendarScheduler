@@ -10,15 +10,13 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class admin_layout extends AppCompatActivity implements View.OnClickListener {
-
-    private Button addfaculty;
-    private Button addevent;
-    private Button resetpassword;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_layout);
+        Button addfaculty;
+        Button addevent;
+        Button resetpassword;
         addfaculty = findViewById(R.id.addFaculty);
         addfaculty.setEnabled(true);
         addfaculty.setOnClickListener(this);
@@ -38,8 +36,8 @@ public class admin_layout extends AppCompatActivity implements View.OnClickListe
             startActivity(Signup);
         }
         if (i == R.id.addevent) {
-            Intent addevent = new Intent(this, addevent.class);
-            startActivity(addevent);
+            Intent addeventt = new Intent(this, addevent.class);
+            startActivity(addeventt);
         }
         if (i == R.id.resetpassword) {
             Intent resetpasintent = new Intent(this, resetpassword.class);

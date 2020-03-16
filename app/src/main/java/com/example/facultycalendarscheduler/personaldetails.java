@@ -48,13 +48,12 @@ public class personaldetails extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(getApplicationContext(), designationlist[i], Toast.LENGTH_LONG).show();
         listno = i;
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        //when nothing is selected
     }
 
     @Override
@@ -63,11 +62,11 @@ public class personaldetails extends AppCompatActivity implements AdapterView.On
         if (i == R.id.button) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             username = user.getEmail();
-            new myTask().execute();
+            new MyTask().execute();
         }
     }
 
-    private class myTask extends AsyncTask<Void, Void, Void> {
+    private class MyTask extends AsyncTask<Void, Void, Void> {
         String s = "";
         String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
         String usr = "admin";
@@ -77,24 +76,18 @@ public class personaldetails extends AppCompatActivity implements AdapterView.On
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-            // loadingProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             Connection con = null;
             try {
-
-                Class.forName("com.mysql.jdbc.Driver");
                 Log.v("san", "pending");
                 con = DriverManager.getConnection(url, usr, pwd);
                 Log.v("san", "comp");
                 s = "0";
                 Statement st = con.createStatement();
-                // st.executeQuery("insert into eventff values(\""+date+"\",\""+add+"\",\""+usermail+"\");");
                 Log.v("san", "before");
-                // ResultSet rs = st.executeQuery("insert into eventff values(\"2-2-2020\",\"Class Cog\",\"soft@gmail.com\");");
                 // need to add mail and the spinner menu
                 int sta = st.executeUpdate("insert into personaldetails values(\"" + email.getText().toString() + "\",\"" + phone.getText().toString() + "\",\"" + address.getText().toString() + "\",\"" + designationlist[listno] + "\",\"" + username + "\");");
                 if (sta > 0)
@@ -103,7 +96,7 @@ public class personaldetails extends AppCompatActivity implements AdapterView.On
                     Log.v("san", "fail");
 
             } catch (Exception E) {
-                E.printStackTrace();
+                Log.e("error", String.valueOf(E));
 
                 s = "1";
             } finally {
@@ -112,7 +105,7 @@ public class personaldetails extends AppCompatActivity implements AdapterView.On
                         con.close();
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e("error", String.valueOf(e));
                 }
             }
             return null;

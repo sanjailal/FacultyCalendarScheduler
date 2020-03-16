@@ -11,7 +11,8 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Userlogin extends AppCompatActivity implements View.OnClickListener {
-    ImageButton b1,b2;
+    ImageButton b1;
+    ImageButton b2;
     Button addpersonaldetails;
 
     @Override

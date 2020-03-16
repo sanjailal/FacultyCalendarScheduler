@@ -34,7 +34,6 @@ import java.util.concurrent.Executors;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-//import org.threeten.bp.format.DateTimeFormatter;
 
 
 public class calendar_view extends AppCompatActivity implements OnDateSelectedListener {
@@ -42,9 +41,8 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
     private String username = "";
     private String daystr = "";
     private ProgressBar prgbar;
-   // private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE, d MMM yyyy");
-   //public String listviewstr="";
    private ArrayAdapter adapter;
+    String err;
     @BindView(R2.id.calendarView_single) MaterialCalendarView single;
 
     @Override
@@ -54,23 +52,20 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
         ButterKnife.bind(this);
         prgbar = findViewById(R.id.loadingcal);
         single.setOnDateChangedListener(this);
-       // loadingProgressBar=(ProgressBar)findViewById(R.id.loadingcal);
         new ApiSimulator().executeOnExecutor(Executors.newSingleThreadExecutor());
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-        Toast.makeText(calendar_view.this, uid, Toast.LENGTH_LONG).show();
         username = user.getEmail();
         Log.d("san", username, null);
     }
 
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-        //final String text = selected ? FORMATTER.format(date.getDate()) : "No Selection";
+        //this may be useful final String text = selected ? FORMATTER.format(date.getDate()) : "No Selection";
         int curdate =selected ? (date.getDay()):0;
         int curmonth =selected ? (date.getMonth()):0;
         int curyr=selected ? (date.getYear()):0;
         daystr =curdate+"-"+curmonth+"-"+curyr;
-        new myTask().execute();
+        new MyTask().execute();
         Toast.makeText(calendar_view.this, "Please Wait....", Toast.LENGTH_LONG).show();
     }
 
@@ -81,7 +76,7 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Log.e(err, String.valueOf(e));
                 Thread.currentThread().interrupt();
             }
             LocalDate temp = LocalDate.now().minusMonths(2);
@@ -107,7 +102,7 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
         }
     }
 
-    private class myTask extends AsyncTask<Void,Void,Void>
+    private class MyTask extends AsyncTask<Void, Void, Void>
     {
         String s="";
         String url="jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
@@ -128,7 +123,6 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
         protected Void doInBackground(Void... voids) {
             Connection con = null;
             try{
-
                 Class.forName("com.mysql.jdbc.Driver");
                 Log.v("san","pending");
                 con = DriverManager.getConnection(url, usr, pwd);
@@ -141,14 +135,14 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
                     mobileArray.add(rsmon.getString(1)+" ");
             }
             catch(Exception E) {
-                E.printStackTrace();
+                Log.e(err, String.valueOf(E));
 
                 s="1";
             } finally {
                 try {
                     con.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Log.e(err, String.valueOf(e));
                 }
             }
             return null;
