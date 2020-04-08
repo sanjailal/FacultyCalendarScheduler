@@ -1,0 +1,2 @@
+# FacultyCalendarScheduler
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/91609ba80d5849648a16f065a73a1f82)](https://app.codacy.com/manual/sanjailal/FacultyCalendarScheduler?utm_source=github.com&utm_medium=referral&utm_content=sanjailal/FacultyCalendarScheduler&utm_campaign=Badge_Grade_Dashboard)
