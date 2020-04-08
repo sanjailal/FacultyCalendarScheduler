@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class resetpassword extends AppCompatActivity implements View.OnClickListener {
+public class ResetPassword extends AppCompatActivity implements View.OnClickListener {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     private EditText resetemail;
     private Button reset;
@@ -49,7 +49,7 @@ public class resetpassword extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d("san", "Email sent.");
-                            Toast.makeText(resetpassword.this, "Check your email....", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ResetPassword.this, "Check your email....", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

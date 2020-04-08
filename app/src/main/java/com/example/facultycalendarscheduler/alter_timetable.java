@@ -78,15 +78,15 @@ public class alter_timetable extends AppCompatActivity implements AdapterView.On
     }
 
     private class MyTask extends AsyncTask<Void, Void, Void> {
-        String s = "";
-        String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
-        String usr = "admin";
-        String pwd = "123456789";
-        int day = dayselected;
-        int starthr = Integer.parseInt(ed1.getText().toString());
-        int startmin = Integer.parseInt(ed2.getText().toString());
-        int endhr = Integer.parseInt(ed3.getText().toString());
-        int endmin = Integer.parseInt(ed4.getText().toString());
+        private String s = "";
+        private String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
+        private String usr = "admin";
+        private String pwd = "123456789";
+        private int day = dayselected;
+        private int starthr = Integer.parseInt(ed1.getText().toString());
+        private int startmin = Integer.parseInt(ed2.getText().toString());
+        private int endhr = Integer.parseInt(ed3.getText().toString());
+        private int endmin = Integer.parseInt(ed4.getText().toString());
 
 
         @Override

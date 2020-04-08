@@ -11,9 +11,9 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Userlogin extends AppCompatActivity implements View.OnClickListener {
-    ImageButton b1;
-    ImageButton b2;
-    Button addpersonaldetails;
+    private ImageButton b1;
+    private ImageButton b2;
+    private Button addpersonaldetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

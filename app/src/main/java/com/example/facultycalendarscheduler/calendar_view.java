@@ -41,8 +41,8 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
     private String username = "";
     private String daystr = "";
     private ProgressBar prgbar;
-   private ArrayAdapter adapter;
-    String err;
+    private ArrayAdapter adapter;
+    private String err;
     @BindView(R2.id.calendarView_single) MaterialCalendarView single;
 
     @Override
@@ -104,10 +104,10 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
 
     private class MyTask extends AsyncTask<Void, Void, Void>
     {
-        String s="";
-        String url="jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
-        String usr="admin";
-        String pwd="123456789";
+        private String s = "";
+        private String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
+        private String usr = "admin";
+        private String pwd = "123456789";
         private ArrayList<String> mobileArray =new ArrayList<>();
 
 
@@ -155,7 +155,7 @@ public class calendar_view extends AppCompatActivity implements OnDateSelectedLi
             {
                 Toast.makeText(getApplicationContext(),"Not Connected",Toast.LENGTH_LONG).show();
             }
-            if(s.equals("0"))
+            if ("0".equals(s))
             {
 
                 listupdate(mobileArray);

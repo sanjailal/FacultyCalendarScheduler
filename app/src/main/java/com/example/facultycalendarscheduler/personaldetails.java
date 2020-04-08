@@ -25,10 +25,10 @@ public class personaldetails extends AppCompatActivity implements AdapterView.On
     private String[] designationlist = {"Professor", "Assistant Professor", "Associate Professor"};
     private int listno;
     private String username;
-    EditText address;
-    EditText phone;
-    EditText email;
-    Button savebutton;
+    private EditText address;
+    private EditText phone;
+    private EditText email;
+    private Button savebutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +67,10 @@ public class personaldetails extends AppCompatActivity implements AdapterView.On
     }
 
     private class MyTask extends AsyncTask<Void, Void, Void> {
-        String s = "";
-        String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
-        String usr = "admin";
-        String pwd = "123456789";
+        private String s = "";
+        private String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
+        private String usr = "admin";
+        private String pwd = "123456789";
 
 
         @Override

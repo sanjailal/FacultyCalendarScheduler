@@ -40,7 +40,7 @@ public class admin_layout extends AppCompatActivity implements View.OnClickListe
             startActivity(addeventt);
         }
         if (i == R.id.resetpassword) {
-            Intent resetpasintent = new Intent(this,resetpassword.class);
+            Intent resetpasintent = new Intent(this, ResetPassword.class);
             startActivity(resetpasintent);
         }
     }

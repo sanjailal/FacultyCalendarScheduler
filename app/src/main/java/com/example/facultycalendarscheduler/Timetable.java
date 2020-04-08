@@ -35,14 +35,14 @@ public class Timetable extends AppCompatActivity {
     private ArrayList<String> flagevent = new ArrayList<>();
     private String username;
     private int fla;
-    int gloflag;
-    int day;
-    int starthr;
-    int startmin;
-    int endhr;
-    int endmin;
-    String faculty;
-    String err = "error";
+    private int gloflag;
+    private int day;
+    private int starthr;
+    private int startmin;
+    private int endhr;
+    private int endmin;
+    private String faculty;
+    private String err = "error";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +92,10 @@ public class Timetable extends AppCompatActivity {
 
 
     private class MyTask extends AsyncTask<Void, Void, Void> {
-        String s = "";
-        String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
-        String usr = "admin";
-        String pwd = "123456789";
+        private String s = "";
+        private String url = "jdbc:mysql://database-1.cyn8mvqyzihy.us-east-1.rds.amazonaws.com:3306/SE";
+        private String usr = "admin";
+        private String pwd = "123456789";
 
 
 
@@ -145,10 +145,10 @@ public class Timetable extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             prgbar.setVisibility(View.INVISIBLE);
-            if (s.equals("1")) {
+            if ("1".equals(s)) {
                 Toast.makeText(getApplicationContext(), "Not Connected", Toast.LENGTH_LONG).show();
             }
-            if (s.equals("0")) {
+            if ("0".equals(s)) {
 
                 Log.v("san", mobileArray.toString(), null);
                 Log.v("san", flagevent.toString(), null);
@@ -294,10 +294,10 @@ public class Timetable extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             prgbar.setVisibility(View.INVISIBLE);
             super.onPostExecute(aVoid);
-            if (s.equals("1")) {
+            if ("1".equals(s)) {
                 Toast.makeText(getApplicationContext(), "Not Connected", Toast.LENGTH_LONG).show();
             }
-            if (s.equals("0")) {
+            if ("0".equals(s)) {
                 gloflag = 1;
                 new MyTask().execute();
                 Toast.makeText(getApplicationContext(), "Changed succesfully", Toast.LENGTH_LONG).show();

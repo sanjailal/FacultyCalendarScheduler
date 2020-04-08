@@ -4,14 +4,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class global_testTest {
+public class Global_TestTest {
     @Test
-    public void test_username() {
+    public void testUsername() {
         assertEquals(global_test.test_username("soft@gmail.com"), true);
     }
 
     @Test
-    public void test_password() {
+    public void testPassword() {
         assertEquals(global_test.test_password("softENGINEhhhh"), true);
     }
 }
